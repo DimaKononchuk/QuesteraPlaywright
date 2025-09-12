@@ -1,0 +1,563 @@
+{
+  "cookies": [
+    {
+      "name": "route",
+      "value": "1757675187.097.2732.704268",
+      "domain": "dev.questera.games",
+      "path": "/",
+      "expires": 1757847986.00871,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "first_visit_date_time",
+      "value": "2025-09-12T11:06:26.019Z",
+      "domain": "dev.questera.games",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "5HIV2npqx1PEelk3ZhlCxERzOlMQUvliBgnkMklFSm4-1757675186-1.0.1.1-4J.EL8q9WzkeTz26jVp_oP0uP4Uxy_DZTbxLhUWnFrwxvVXR5ZEMPxL_H7P2ALnDPa3O1P87oDUBR_rQ7TUNLwLmawOuptxFxP4yzPTcByo",
+      "domain": ".load.vis.questera.games",
+      "path": "/",
+      "expires": 1757676986.176733,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "CLID",
+      "value": "a2d1ac8815b54646abba8019dc0a6bfa.20250912.20260912",
+      "domain": "www.clarity.ms",
+      "path": "/",
+      "expires": 1789211186.340918,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ttp",
+      "value": "32b2w437ZIUuD3dUD3DIcNq3L5g",
+      "domain": ".tiktok.com",
+      "path": "/",
+      "expires": 1791371192.632548,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.702270860.1757675186",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1792235192.546424,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CCVisitorMachineId",
+      "value": "31992f28-982c-4c7e-9902-5e5b5329657c",
+      "domain": "dev.questera.games",
+      "path": "/",
+      "expires": 1792235192.700218,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_tt_enable_cookie",
+      "value": "1",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1791371192,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ttp",
+      "value": "01K4YSNTGMBVGD9Z6PH704BCAH_.tt.1",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1791371192,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "FPID",
+      "value": "FPID2.2.gP2YQxIRmbqpymGJvsJhkn7ahymLY9BQqiuXXhfiBYY%3D.1757675186",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1792235194.498832,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "FPLC",
+      "value": "mwQJWd0SFwpcYaS5QbPkfB%2BGXWz1%2FDkIfdx6MLmk98COnWBKlh68k5hSTPdx7Cz7KWupKheXBy1h3uBY5Li6NkR7Zo7qROfXLhl%2FryAzCCn%2F1Ezo5BN%2Bpoe%2BJ19lig%3D%3D",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1757747186.96216,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "FPGSID",
+      "value": "1.1757675186.1757675186.G-5FBZ5EKL5M.MNePHr0fXlBEmgXfttCgAg",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1757676986.962192,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "_fbp",
+      "value": "fb.1.1757675186990.1088963309",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1765451194.722429,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_clck",
+      "value": "xy3342%5E2%5Efz9%5E0%5E2081",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1789211187,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "zeqtnzY9Ezo0DvBkmwEC7m9ycYES3twta7oXuP82jKE-1757675187-1.0.1.1-2sjyxs4yCEfYNxY0Ng3cu9UZn5lwbICsK21ZMLedYFmKJfI9Y3xgUB3i77yYI1eQ",
+      "domain": ".vimeo.com",
+      "path": "/",
+      "expires": 1757676987.520126,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "bsJdG33c9nv4o4kQZuws.s9SlDCWlCTfKntRVG9O03o-1757675187626-0.0.1.1-604800000",
+      "domain": ".vimeo.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "player",
+      "value": "\"\"",
+      "domain": ".vimeo.com",
+      "path": "/",
+      "expires": 1789211187,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "vuid",
+      "value": "pl1983057847.767996563",
+      "domain": ".vimeo.com",
+      "path": "/",
+      "expires": 1792235187.830914,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SM",
+      "value": "T",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "0D6AE333192E6DB912E3F5561D2E6396",
+      "domain": ".clarity.ms",
+      "path": "/",
+      "expires": 1791371187.859449,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "route",
+      "value": "1757675188.968.2652.810145",
+      "domain": "identity.dev.questera.games",
+      "path": "/",
+      "expires": 1757847987.912633,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MUID",
+      "value": "34C4CA375FD261D33BA0DC525EC060B3",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1791371187.956065,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1758279987.956127,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SRM_B",
+      "value": "34C4CA375FD261D33BA0DC525EC060B3",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1791371187.956148,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "IDE",
+      "value": "AHWqTUlzlJ-GMAAR6m-5bInpqBTJ48JUnq3pCPZxfikXhn_dGQAyk_hEDdm1QUfj",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1792235188.46789,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_iidt",
+      "value": "7mie3lMhZHduSlIPAIb7RAIpoVOBINS8cp1Ca3CD7dzF785gyLs80+0l6pPH8kfHF5nwPTv3SiGTdz7Py09AHcgpfDXZde8=",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1789211189.017757,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_vid_t",
+      "value": "b6oDMxKGcD9wN18TlJuFUyFBop5U66/NZCJ0hXXCMZYp+ojbmG03PzQ4NtWGmMsqOLLGxD5U6Wxp4pQL52VWqnoq2vLaY+w=",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1789211189,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.988843108.1757675186.1699771547.1757675189.1757675192",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1765451186,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "idsrv.session",
+      "value": "A759C75BD0CB8A135A2A0F348B00EBEE",
+      "domain": "identity.dev.questera.games",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "uid",
+      "value": "0640e69e-3598-4772-a826-dbb29ff1cc88",
+      "domain": ".dev.questera.games",
+      "path": "/",
+      "expires": 1758884792.251519,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": ".AspNetCore.Identity.Application",
+      "value": "CfDJ8DiQ-fGa6RJDmXW4gx3iR8PMgkvN6c5IEvoyZnaEtdvCw33bHDZWsqd7E6PIFcMElQ6CS0bU73sxfi-i4V8jn-VkZmoBvthmIkkm6WjcP3VYHbEBLPvSuLPuYn-H6Px0AD2Qtg05alAGTd79kRLehuYHIf4aVbprbrobQsW3aE0uVV966IGaDzvTn_4E4smmfVRJj-k0uoi8_4FYlU62zBAmJT15wkV-_ofDUQVkc7M6w50SgxCUCvq5_y1SxYEKzLBf2ZYZmdH187axsfjtCus419CeZ1zJ67Q7M5_wkMB94wxGfx4ZRS4SJg918tL2XUQNN9cjDe0Xhx3GNmdyMXRPVM5U5BefCdyNGBSpyhZKbUymnaIHroM6Sz9kcAwREublX0KiwvR--pEnH0p9NFYFffUnHTT_n-PpR-X2EHuw2C5pKy3z6Yx82f74M89xIZM4v7dcinoNz-Rf7idDqDzYxrJkSpPRR_SRZL_e0oysbjcW4LjiLbA0huZ2KbZofdPCls7ob9R5Ycno_X6Xe3N8AFLR9iKaWrrOZN_29mz3KsjuHyeNmtCkEk8lVmRDaYywIHGsUkUj7vPqQW8JfEly48hHKyovZlxdi0PHywgh-ZjU_3-6AmEKa0lEFFHjfGR0UepC7UlkONTKnYOquD42bGp7coAuFr6zzm0mDTOKb9uyQkghPI_Sg1P5VdWr533KeYhx75TnGktCWpt8yPkEWOhlBBXZMLT486gnoHY_4GjVh0hiQ_OW-1xTzGLrHKhh7U4x7es2IX62zM9iIpewR0Rww2dTU5ZZb5sEpVKufu-8EOIEEhz_enjC2LqG3pwSvZsO8jWxv4sPP81MpQZOZLUhB6oD39NJzbhSWKfqteoFyv83EJxph1bzbFoZs1PPLoN_hfMw84sLMUZFSr9by3RHmwxPb7OICLS_32hXWx_Rf-W-HJlotE7cwOJV5XAbx0suzftcYzW-WDabpcmkTHdvsAV6AmoPL6BXt1zv_LXUXXPf4AItjoe2b95Ox4pA2sP3HiuOPpeCJUhdwT4sCcxBWWAsu9JWkYpjOA7tYMzKOfOMqTXdJs9Zdo5qBxhtPNbf5ao-h69bU3jGCYZFT06BXssV-WkR4b4KILJtFE10BmiRwvd91k8dBgEUTDgCP4PD8072IKAhb0GSRgV3TX4Bz5aWgeUKaQRLcSqRiNE-te_zkP_BKO6aUXrNLAm6wzcDoJMviF2Md9T_n7HoA7luNqUy0dksZMxSZDgSKwbebEXelK4ZfnmuYZsK74EZr_iKidZPREMEZAcUcHOHEQgevemQZve7vK3HrjPNl_G_oqgU7s_aIMoEl0vEPdrUCWmjgQTANCMbgKs8mZM",
+      "domain": "identity.dev.questera.games",
+      "path": "/",
+      "expires": 1758884792.337774,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "ttcsid_D2I5MAJC77U89NHRTHPG",
+      "value": "1757675186710::bxYkUPxJJM64UN_lGQNq.1.1757675192895",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1791371192,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "ttcsid",
+      "value": "1757675186710::niP2KjEKlSs3p7uHUpxk.1.1757675192895",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1791371192,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_clsk",
+      "value": "1804kux%5E1757675193396%5E3%5E1%5Ea.clarity.ms%2Fcollect",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1757761593,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "route",
+      "value": "1757675194.666.2574.39423",
+      "domain": "api.dev.questera.games",
+      "path": "/",
+      "expires": 1757847993.577754,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gtmeec",
+      "value": "eyJlbSI6IjVjOGY4ZDFlZjA5NmY1OGIwNTM3MWYzY2ZiZTc4M2MxYzE4N2Y3NGY2YWJlN2U0YWU0MTkwZmZhODNjOTYyMjUiLCJleHRlcm5hbF9pZCI6Ijc0MmI3MzBmM2U3NmEwZGY2Y2E2YWQ3ZTFlMGNlM2EyNTg0ZGE5Y2NiZTBiNGE4YmY2ZDcxOTBiYTAyMjlkYjkifQ%3D%3D",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1765451194.723017,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "YSC",
+      "value": "AgsDinVsy6Y",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://questera.games",
+      "_crHasCrossSiteAncestor": true
+    },
+    {
+      "name": "__Secure-ROLLOUT_TOKEN",
+      "value": "CK-l2YL_qsymMRDFqLqsitOPAxjFqLqsitOPAw%3D%3D",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": 1773227193.725631,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://questera.games",
+      "_crHasCrossSiteAncestor": true
+    },
+    {
+      "name": "VISITOR_INFO1_LIVE",
+      "value": "gG54hCFNZsE",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": 1773227193.725678,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://questera.games",
+      "_crHasCrossSiteAncestor": true
+    },
+    {
+      "name": "VISITOR_PRIVACY_METADATA",
+      "value": "CgJVQRIEGgAgVA%3D%3D",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": 1773227193.725701,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://questera.games",
+      "_crHasCrossSiteAncestor": true
+    },
+    {
+      "name": "_ga_5FBZ5EKL5M",
+      "value": "GS2.1.s1757675186$o1$g1$t1757675194$j52$l1$h1310786722",
+      "domain": ".questera.games",
+      "path": "/",
+      "expires": 1792235194.345782,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://dev.questera.games",
+      "localStorage": [
+        {
+          "name": "topicsLastReferenceTime",
+          "value": "1757675192893"
+        },
+        {
+          "name": "id_token_expires_at",
+          "value": "1757675493000"
+        },
+        {
+          "name": "nonce",
+          "value": "c00zZndDX1lVZUtHaUJsWVE5eHJ5YTQ1b05xX0N0U0czVzZHWFlZdmh6Q2hY"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"creationTimeMs\":1757675186213},\"expires\":1765451186213}}"
+        },
+        {
+          "name": "PKCE_verifier",
+          "value": "S3hlM3JKaXJ6OS1zekFzSXpYcFBNajZLOVA4Mm9rMGdSaXZGY3FscVF4Q0VJ"
+        },
+        {
+          "name": "id_token_claims_obj",
+          "value": "{\"nbf\":1757675193,\"exp\":1757675493,\"iss\":\"https://identity.dev.questera.games\",\"aud\":\"questera.platform\",\"nonce\":\"c00zZndDX1lVZUtHaUJsWVE5eHJ5YTQ1b05xX0N0U0czVzZHWFlZdmh6Q2hY\",\"iat\":1757675193,\"at_hash\":\"jGm9YxSv_j3SN6ntAWa8lA\",\"s_hash\":\"JUbaCm4ddZb98KC-DzTEJA\",\"sid\":\"A759C75BD0CB8A135A2A0F348B00EBEE\",\"sub\":\"0640e69e-3598-4772-a826-dbb29ff1cc88\",\"auth_time\":1757675192,\"idp\":\"local\",\"amr\":[\"pwd\"]}"
+        },
+        {
+          "name": "refresh_token",
+          "value": "509B17F17E5497B7026F964E64554B1E929A1381AE7925D3F8EC2A7C566A5EF1"
+        },
+        {
+          "name": "id_token_stored_at",
+          "value": "1757675193150"
+        },
+        {
+          "name": "granted_scopes",
+          "value": "[\"openid\",\"profile\",\"email\",\"offline_access\"]"
+        },
+        {
+          "name": "isQCookieShown",
+          "value": "1"
+        },
+        {
+          "name": "ZD-store",
+          "value": "{\"activeEmbed\":\"helpCenterForm\",\"widgetShown\":false,\"is_chatting\":false}"
+        },
+        {
+          "name": "ZD-suid",
+          "value": "{\"id\":\"df9b89aa9d2941e196de9b0ba7da0204\",\"expiry\":1757676092636,\"tabs\":{\"count\":1,\"expiry\":0}}"
+        },
+        {
+          "name": "access_token_stored_at",
+          "value": "1757675193149"
+        },
+        {
+          "name": "lastExternalReferrerTime",
+          "value": "1757675192609"
+        },
+        {
+          "name": "session_state",
+          "value": "7lj2vG9R7Fk0oKDV4YMxWlUVHQYv5CcaAGCrh87ynXY.5B34FE90FF75BED5B0D9A03731CEAFF8"
+        },
+        {
+          "name": "lastExternalReferrer",
+          "value": "other"
+        },
+        {
+          "name": "id_token",
+          "value": "eyJhbGciOiJQUzI1NiIsImtpZCI6IjFkYzExNjM4Y2NhMjQ4NTliZjg0MTBkMzBiNjI3Y2RmIiwidHlwIjoiSldUIn0.eyJuYmYiOjE3NTc2NzUxOTMsImV4cCI6MTc1NzY3NTQ5MywiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS5kZXYucXVlc3RlcmEuZ2FtZXMiLCJhdWQiOiJxdWVzdGVyYS5wbGF0Zm9ybSIsIm5vbmNlIjoiYzAwelpuZERYMWxWWlV0SGFVSnNXVkU1ZUhKNVlUUTFiMDV4WDBOMFUwY3pWelpIV0ZsWmRtaDZRMmhZIiwiaWF0IjoxNzU3Njc1MTkzLCJhdF9oYXNoIjoiakdtOVl4U3ZfajNTTjZudEFXYThsQSIsInNfaGFzaCI6IkpVYmFDbTRkZFpiOThLQy1EelRFSkEiLCJzaWQiOiJBNzU5Qzc1QkQwQ0I4QTEzNUEyQTBGMzQ4QjAwRUJFRSIsInN1YiI6IjA2NDBlNjllLTM1OTgtNDc3Mi1hODI2LWRiYjI5ZmYxY2M4OCIsImF1dGhfdGltZSI6MTc1NzY3NTE5MiwiaWRwIjoibG9jYWwiLCJhbXIiOlsicHdkIl19.SzTY5hw6f-2YIc98FkSO5OIIgKb0UCj6zlDx5z-pwi160aLtsQbMvCBsY1-rgryRr9fwoV0QVIshKHl-NoQwCizpbT9IBimr-HRRNzt3qQYI1O_eTbkBUDvYNm4rHa71_kFW9r5yr4n4124H_HqVrVvFYSOMLtoMsoJWVS1dq2xK3PfEZH0S92cLiztawmbkvQUXVVFPS2l8K5urkkB8XCa1wFF-qeVyEoHPZEnrQj-UoDs-AcrPUiefiUHTSYaqJdMnARC7YRaZw7E7rUpiIUg80CzpVE3YLj_KIZE9MaVX6ZFOweeEHG2w54XbdekRuQouyBJ2RMgLLS3huIrc-w"
+        },
+        {
+          "name": "access_token",
+          "value": "eyJhbGciOiJQUzI1NiIsImtpZCI6IjFkYzExNjM4Y2NhMjQ4NTliZjg0MTBkMzBiNjI3Y2RmIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE3NTc2NzUxOTMsImV4cCI6MTc1NzY3NTQ5MywiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS5kZXYucXVlc3RlcmEuZ2FtZXMiLCJjbGllbnRfaWQiOiJxdWVzdGVyYS5wbGF0Zm9ybSIsInN1YiI6IjA2NDBlNjllLTM1OTgtNDc3Mi1hODI2LWRiYjI5ZmYxY2M4OCIsImF1dGhfdGltZSI6MTc1NzY3NTE5MiwiaWRwIjoibG9jYWwiLCJzdWJzY3JpcHRpb24iOiJmYTNlYWM5OS1lMzhhLTRmNzctMDkyYi0wOGRkOTNiOTNkMTUiLCJ1c2VyX2dyb3VwcyI6IiIsImp0aSI6IjI2RjU3MTdGRTg3MjI4N0VDREIyNzMwMkJDNkY2ODgzIiwic2lkIjoiQTc1OUM3NUJEMENCOEExMzVBMkEwRjM0OEIwMEVCRUUiLCJpYXQiOjE3NTc2NzUxOTMsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJlbWFpbCIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJwd2QiXX0.a6DQna37xHr-dBTQCoKbhp-0qzW5LBNzx_tw1jtYj6kESzYA-Ljk89cUpAJKrOwksZdwy8uGdPrT2jgG2Jo5KABvDix26JfNZkAHtSrBepFNqqSJaq9h6gm0CmpIYxexxzQrPBV9Riy96hE-qA0ywWkbDxctduvE5-kQzslZ5iAP_7YK44F9cvDTiaSLLvZN2TAiaWKz-79YUiDO6qQLZV3BqQgAXN8MfVUZnRgIriArki_C78sCZ_5SPS4A4c1SQF7xzwxFj6g07Rub_J5YOurkL4jUZ-vWyGuf2TLJ6_1rsjhzWn2t5NL9TKFkhTY-XawLN9xjbj5Ql5cFw0NXPQ"
+        },
+        {
+          "name": "CCServerTimeDifference",
+          "value": "0"
+        },
+        {
+          "name": "chosen_lang",
+          "value": "en"
+        },
+        {
+          "name": "expires_at",
+          "value": "1757675493149"
+        }
+      ]
+    },
+    {
+      "origin": "https://player.vimeo.com",
+      "localStorage": [
+        {
+          "name": "sync_active",
+          "value": "\"7e8451d23c192d5c44b71ec530fc7c5feba444101757675187\""
+        }
+      ]
+    },
+    {
+      "origin": "https://identity.dev.questera.games",
+      "localStorage": [
+        {
+          "name": "ZD-store",
+          "value": "{\"activeEmbed\":\"helpCenterForm\",\"widgetShown\":false,\"is_chatting\":false}"
+        },
+        {
+          "name": "ZD-suid",
+          "value": "{\"id\":\"d458aabcc63049ea9214b0929cee1d28\",\"expiry\":1757676088593,\"tabs\":{\"count\":0,\"expiry\":1757675222460}}"
+        },
+        {
+          "name": "lastExternalReferrerTime",
+          "value": "1757675188488"
+        },
+        {
+          "name": "_vid_lr",
+          "value": "[[\"sy9lbuny4aI9\",\"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\"]]"
+        },
+        {
+          "name": "topicsLastReferenceTime",
+          "value": "1757675192026"
+        },
+        {
+          "name": "_vid_t",
+          "value": "b6oDMxKGcD9wN18TlJuFUyFBop5U66/NZCJ0hXXCMZYp+ojbmG03PzQ4NtWGmMsqOLLGxD5U6Wxp4pQL52VWqnoq2vLaY+w="
+        },
+        {
+          "name": "lastExternalReferrer",
+          "value": "other"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"creationTimeMs\":1757675188152},\"expires\":1765451188152}}"
+        },
+        {
+          "name": "chosen_lang",
+          "value": "en"
+        }
+      ]
+    }
+  ]
+}
