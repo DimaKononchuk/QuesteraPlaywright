@@ -19,6 +19,9 @@ test.describe("login v1.1", ()=>{
             
             await loginPage.openPage();
             await loginPage.clickLogin();
+            const title=await loginPage.getTitle();
+            await expect(title).toBeVisible();
+            await expect(title).toHaveText('Log in to platform');
             await loginPage.loginWithProvider(provider.name)
             await page.waitForURL(provider.urlRegex);
             await expect(page.getByText(provider.checkText)).toBeVisible({timeout:10000});
@@ -55,4 +58,40 @@ test.describe("login v1.1", ()=>{
         await expect(page.getByText('Invalid credentials')).toBeVisible();
             
     })
+})
+
+
+test.describe("register", ()=>{
+
+    for(const provider of providers){
+        test(`register with ${provider.name} external provider`, async({page})=>{
+            const loginPage=new LoginPage(page,ENVIRONMENT);            
+            await loginPage.openPage();
+            await loginPage.clickRegister();
+            const title=await loginPage.getTitle();
+            await expect(title).toBeVisible();
+            await expect(title).toHaveText('Create account');
+            await loginPage.loginWithProvider(provider.name)
+            await page.waitForURL(provider.urlRegex);
+            await expect(page.getByText(provider.checkText)).toBeVisible({timeout:10000});
+
+        })
+    }
+
+    test('mail register valid credentials', async({page})=>{
+        const loginPage= new LoginPage(page,ENVIRONMENT);
+        await loginPage.openPage();
+        await loginPage.clickRegister();
+        await loginPage.clickNeedMoreOptions();
+        await loginPage.clickEmail();
+        await loginPage.registerWithEmail(generateRandomEmail(),PASSWORD);
+        await expect(page.locator('.register-success-section__title', { hasText: 'Confirmation' })).toBeVisible();
+            
+    })
+
+
+    function generateRandomEmail() {
+        const randomNumber = Math.floor(Math.random() * 10000); // 0–9999
+        return `questeratest${randomNumber}@questera.test`;
+    }
 })
