@@ -95,6 +95,17 @@ test.describe("register", ()=>{
         return `questeratest${randomNumber}@questera.test`;
     }
 
+    test('register used mail', async({page})=>{
+        const loginPage= new LoginPage(page,ENVIRONMENT);
+        await loginPage.openPage();
+        await loginPage.clickRegister();
+        await loginPage.clickNeedMoreOptions();
+        await loginPage.clickEmail();
+        await loginPage.registerWithEmail(EMAIL);
+        const title=await loginPage.getTitle('Email is already exist');
+        await expect(title).toBeVisible();
+        
+    })
 
 
 

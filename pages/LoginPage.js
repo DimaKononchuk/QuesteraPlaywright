@@ -29,12 +29,17 @@ export class LoginPage{
     async clickEmail() {
         await this.page.getByRole('button', { name: 'EMAIL' }).click();
     }
+
     async clickRegister() {
         await this.page.getByRole('button', { name: 'Register' }).click();
     }
 
     async getTitle(){
         return await this.page.locator('div.login-selector__title');
+    }
+
+    async getTitle(title){
+        return await this.page.locator('div.login-selector__title', { hasText: title });
     }
     
     async loginWithProvider(provider) {
@@ -55,11 +60,12 @@ export class LoginPage{
         const checkbox= await this.page.locator('span').first();        
         await checkbox.click();
         await expect(this.nextBtn).toBeDisabled();
-        await this.emailInput.fill(email);       
+        await this.emailInput.fill(email);  
+        await this.nextBtn.click();     
     }
 
     async registerWithPassword(password){        
-        await this.nextBtn.click();
+        
         await expect(this.nextBtn).toBeDisabled();
         await this.passwordInput.fill(password);
         await this.nextBtn.click();
