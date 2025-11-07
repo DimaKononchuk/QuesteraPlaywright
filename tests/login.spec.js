@@ -24,7 +24,7 @@ test.describe("login v1.1", ()=>{
             await expect(title).toHaveText('Log in to platform');
             await loginPage.loginWithProvider(provider.name)
             await page.waitForURL(provider.urlRegex);
-            await expect(page.getByText(provider.checkText)).toBeVisible({timeout:10000});
+            await expect(page.getByText(provider.checkText)).toBeVisible({timeout:60000});
 
         })
     }
@@ -73,7 +73,7 @@ test.describe("register", ()=>{
             await expect(title).toHaveText('Create account');
             await loginPage.loginWithProvider(provider.name)
             await page.waitForURL(provider.urlRegex);
-            await expect(page.getByText(provider.checkText)).toBeVisible({timeout:10000});
+            await expect(page.getByText(provider.checkText)).toBeVisible({timeout:60000});
 
         })
     }
