@@ -8,32 +8,31 @@ const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
 test.describe('(Home Page) testing redirect',()=>{
 
-    test("click Challenges", async({page})=>{
-        const home = new HomePage(page,ENVIRONMENT);
-        const sidebar= new Sidebar(page,ENVIRONMENT);
+    
+    let sidebar;
+
+    test.beforeEach(async ({ page }) => {
+        const home = new HomePage(page, ENVIRONMENT);
+        sidebar = new Sidebar(page, ENVIRONMENT);
         await home.openPage();
         await expect(page.getByRole('button', { name: 'Buy Energy' })).toBeVisible();
+    });
+
+    test('click Challenges', async ({ page }) => {
         await sidebar.challengeClick();
-        await expect(page).toHaveURL(/\/Dota2\/challenges\/TurboMode/);
-    })
+        await expect(page).toHaveURL(/\/Dota2\/challenges\/TurboMode$/);
+    });
 
-    test("click Calibration", async({page})=>{
-        const home = new HomePage(page,ENVIRONMENT);
-        const sidebar= new Sidebar(page,ENVIRONMENT);
-        await home.openPage();
-        await expect(page.getByRole('button', { name: 'Buy Energy' })).toBeVisible();
+    test('click Calibration', async ({ page }) => {
         await sidebar.calibrationClick();
-        await expect(page).toHaveURL(/\/Dota2\/calibration\/TurboMode/);
-    })
+        await expect(page).toHaveURL(/\/Dota2\/calibration\/TurboMode$/);
+    });
 
-    test("click Lucky Box", async({page})=>{
-        const home = new HomePage(page,ENVIRONMENT);
-        const sidebar= new Sidebar(page,ENVIRONMENT);
-        await home.openPage();
-        await expect(page.getByRole('button', { name: 'Buy Energy' })).toBeVisible();
+    test('click Lucky Box', async ({ page }) => {
         await sidebar.luckyBoxClick();
-        await expect(page).toHaveURL(/\/Dota2\/lucky-box/);
-    })
+        await expect(page).toHaveURL(/\/Dota2\/lucky-box$/);
+    });
+
 
 
 })
