@@ -15,8 +15,7 @@ test.describe("login v1.1", ()=>{
     
     for(const provider of providers){
         test(`login with ${provider.name} external provider`, async({page})=>{
-            const loginPage=new LoginPage(page,ENVIRONMENT);
-            
+            const loginPage=new LoginPage(page,ENVIRONMENT);            
             await loginPage.openPage();
             await loginPage.clickLogin();
             const title=await loginPage.getTitle('Log in to platform');
