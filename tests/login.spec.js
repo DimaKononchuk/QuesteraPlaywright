@@ -1,82 +1,59 @@
 import test, { page,expect } from "@playwright/test";
+import { LoginPage } from '../pages/LoginPage';
 
 
+const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
+const EMAIL=process.env.TEST_EMAIL;
+const PASSWORD=process.env.TEST_PASSWORD;
 
-test.describe("login test",()=>{
 
-    test("discord login", async({page})=>{
-        await page.goto("https://dev.questera.games/");
-        await page.getByRole('button', { name: 'Log in' }).click();
-        await page.getByRole('button', { name: 'Discord' }).click();
-        await page.waitForURL(/.*discord\.com\/oauth2\/authorize.*/)
-        await expect(page.locator('//h1[@data-text-variant="heading-xl/semibold" and text()="Discord App Launched"]')).toBeVisible();
-        
-    })
+const providers = [
+    { name: 'Discord', urlRegex: /discord\.com\/oauth2\/authorize/, checkText: 'Discord App Launched' },
+    { name: 'Twitch', urlRegex: /twitch\.tv\/login/, checkText: 'Log in to Twitch' },
+    { name: 'Google', urlRegex: /accounts\.google\.com\/v3\/signin/, checkText: 'Sign in with Google' }
+]
+test.describe("login v1.1", ()=>{
+    
+    for(const provider of providers){
+        test(`login with ${provider.name} external provider`, async({page})=>{
+            const loginPage=new LoginPage(page,ENVIRONMENT);
+            
+            await loginPage.openPage();
+            await loginPage.clickLogin();
+            await loginPage.loginWithProvider(provider.name)
+            await page.waitForURL(provider.urlRegex);
+            await expect(page.getByText(provider.checkText)).toBeVisible();
 
-    test("twitch login", async({page})=>{
-        await page.goto("https://dev.questera.games/");
-        await page.getByRole('button', { name: 'Log in' }).click();
-        await page.getByRole('button', { name: 'Twitch' }).click();
-        await page.waitForURL(/.*twitch\.tv\/login.*/)
-        await expect(page.getByText('Log in to Twitch')).toBeVisible();
-        
-    })
+        })
+    }
 
-    test("Google login", async({page})=>{
-        await page.goto("https://dev.questera.games/");
-        await page.getByRole('button', { name: 'Log in' }).click();
-        await page.getByRole('button', { name: 'Google' }).click();
-        await page.waitForURL(/.*accounts\.google\.com\/v3\/signin.*/)
-        await expect(page.getByText('Sign in', { exact: true })).toBeVisible();
-        
-    })
+    test('mail login valid credentials', async({page})=>{
+        const loginPage= new LoginPage(page,ENVIRONMENT);
 
-    test("login email", async ({page})=>{
-        await page.goto("https://dev.questera.games/");
-        await page.getByRole('button', { name: 'Log in' }).click();
-        
-        await page.getByRole('button', { name: 'Email' }).click();
-
-        await expect(page.getByText('Log in with email')).toBeVisible();
-
-        await page.locator('input[formcontrolname="email"]').fill("questeratest1758891485@questera.test");
-        await page.locator('input[formcontrolname="password"]').fill("!Qazxsw2");
-        
-        await page.locator('button[type="submit"]').click();
-
+        await loginPage.openPage();
+        await loginPage.clickLogin();
+        await loginPage.loginWithEmail(EMAIL,PASSWORD);
+        await page.waitForURL(/questera\.games\/home/);
         await expect(page.getByRole('button', { name: 'Buy Energy' })).toBeVisible();
+            
     })
 
-    test("login invalid email", async ({page})=>{
-        await page.goto("https://dev.questera.games/");
-        await page.getByRole('button', { name: 'Log in' }).click();
-        
-        await page.getByRole('button', { name: 'Email' }).click();
+    test('mail login invalid email', async({page})=>{
+        const loginPage= new LoginPage(page,ENVIRONMENT);
 
-        await expect(page.getByText('Log in with email')).toBeVisible();
-
-        await page.locator('input[formcontrolname="email"]').fill("questeratest1758891485965@questera.test");
-        await page.locator('input[formcontrolname="password"]').fill("!Qazxsw2");
-        
-        await page.locator('button[type="submit"]').click();
-
+        await loginPage.openPage();
+        await loginPage.clickLogin();
+        await loginPage.loginWithEmail('EMAIL@gmail.com',PASSWORD);
         await expect(page.getByText('Invalid credentials')).toBeVisible();
+            
     })
-    
-    test("login invalid password", async ({page})=>{
-        await page.goto("https://dev.questera.games/");
-        await page.getByRole('button', { name: 'Log in' }).click();
-        
-        await page.getByRole('button', { name: 'Email' }).click();
+    test('mail login invalid password', async({page})=>{
+        const loginPage= new LoginPage(page,ENVIRONMENT);
 
-        await expect(page.getByText('Log in with email')).toBeVisible();
-
-        await page.locator('input[formcontrolname="email"]').fill("questeratest1758891485@questera.test");
-        await page.locator('input[formcontrolname="password"]').fill("!Qazxsw22");
-        
-        await page.locator('button[type="submit"]').click();
-
+        await loginPage.openPage();
+        await loginPage.clickLogin();
+        await loginPage.loginWithEmail(EMAIL,"PASSWORD122");
         await expect(page.getByText('Invalid credentials')).toBeVisible();
+            
     })
-    
 })

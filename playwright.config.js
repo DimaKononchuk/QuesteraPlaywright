@@ -1,6 +1,11 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
 
+import dotenv from 'dotenv';
+
+// Завантажуємо змінні з .env
+dotenv.config();
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
