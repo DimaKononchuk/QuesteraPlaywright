@@ -6,7 +6,6 @@ const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 const EMAIL=process.env.TEST_EMAIL;
 const PASSWORD=process.env.TEST_PASSWORD;
 
-
 const providers = [
     { name: 'Discord', urlRegex: /discord\.com\/oauth2\/authorize/, checkText: 'Discord App Launched' },
     { name: 'Twitch', urlRegex: /twitch\.tv\/login/, checkText: 'Log in to Twitch' },
@@ -22,7 +21,7 @@ test.describe("login v1.1", ()=>{
             await loginPage.clickLogin();
             await loginPage.loginWithProvider(provider.name)
             await page.waitForURL(provider.urlRegex);
-            await expect(page.getByText(provider.checkText)).toBeVisible();
+            await expect(page.getByText(provider.checkText)).toBeVisible({timeout:10000});
 
         })
     }
