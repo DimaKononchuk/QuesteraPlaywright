@@ -10,6 +10,7 @@ export class LoginPage{
         this.emailInput = page.locator('input[formcontrolname="email"]');
         this.passwordInput = page.locator('input[formcontrolname="password"]');
         this.submitButton = page.locator('button[type="submit"]');
+        this.nextBtn= page.getByRole('button', { name: 'Next' });
     }
 
     async openPage(){
@@ -50,22 +51,17 @@ export class LoginPage{
 
     
     
-    async registerWithEmail(email, password) {
-        
-        const checkbox= await this.page.locator('span').first();
-        const nextBtn= await this.page.getByRole('button', { name: 'Next' });
+    async registerWithEmail(email) {        
+        const checkbox= await this.page.locator('span').first();        
         await checkbox.click();
-        await expect(nextBtn).toBeDisabled();
-        await this.emailInput.fill(email);
-        await expect(this.page.getByText('Valid email format')).toBeVisible();
-        await nextBtn.click();
-        await expect(nextBtn).toBeDisabled();
-        await this.passwordInput.fill(password);
-        await nextBtn.click();
-        
-        
-        
+        await expect(this.nextBtn).toBeDisabled();
+        await this.emailInput.fill(email);       
     }
 
-
+    async registerWithPassword(password){        
+        await this.nextBtn.click();
+        await expect(this.nextBtn).toBeDisabled();
+        await this.passwordInput.fill(password);
+        await this.nextBtn.click();
+    }
 }

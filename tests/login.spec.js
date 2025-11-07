@@ -84,14 +84,19 @@ test.describe("register", ()=>{
         await loginPage.clickRegister();
         await loginPage.clickNeedMoreOptions();
         await loginPage.clickEmail();
-        await loginPage.registerWithEmail(generateRandomEmail(),PASSWORD);
+        await loginPage.registerWithEmail(generateRandomEmail());
+        await expect(page.getByText('Valid email format')).toBeVisible();
+        await loginPage.registerWithPassword(PASSWORD);
         await expect(page.locator('.register-success-section__title', { hasText: 'Confirmation' })).toBeVisible();
             
     })
-
-
     function generateRandomEmail() {
         const randomNumber = Math.floor(Math.random() * 10000); // 0–9999
         return `questeratest${randomNumber}@questera.test`;
     }
+
+
+
+
+
 })
