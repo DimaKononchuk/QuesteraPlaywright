@@ -19,9 +19,8 @@ test.describe("login v1.1", ()=>{
             
             await loginPage.openPage();
             await loginPage.clickLogin();
-            const title=await loginPage.getTitle();
+            const title=await loginPage.getTitle('Log in to platform');
             await expect(title).toBeVisible();
-            await expect(title).toHaveText('Log in to platform');
             await loginPage.loginWithProvider(provider.name)
             await page.waitForURL(provider.urlRegex);
             await expect(page.getByText(provider.checkText)).toBeVisible({timeout:60000});
@@ -68,9 +67,8 @@ test.describe("register", ()=>{
             const loginPage=new LoginPage(page,ENVIRONMENT);            
             await loginPage.openPage();
             await loginPage.clickRegister();
-            const title=await loginPage.getTitle();
+            const title=await loginPage.getTitle('Create account');
             await expect(title).toBeVisible();
-            await expect(title).toHaveText('Create account');
             await loginPage.loginWithProvider(provider.name)
             await page.waitForURL(provider.urlRegex);
             await expect(page.getByText(provider.checkText)).toBeVisible({timeout:60000});
