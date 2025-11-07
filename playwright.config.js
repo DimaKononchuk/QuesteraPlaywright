@@ -43,13 +43,22 @@ export default defineConfig({
     },*/
 
     // 2. Chromium project з уже готовим storageState
-    {
+    /*{
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
         //storageState: 'playwright/.auth/user.json',
       },
       testMatch: /.*questera\.spec\.js/,
+      //dependencies: ['setup'],
+    },*/
+    {
+      name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome'],
+        //storageState: 'playwright/.auth/user.json',
+      },
+      testMatch: /.*login\.spec\.js/,
       //dependencies: ['setup'],
     },
     /*
