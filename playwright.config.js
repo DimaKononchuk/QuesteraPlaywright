@@ -62,6 +62,13 @@ export default defineConfig({
       },
       testMatch: /.*login\.spec\.js/,
     }
+    {
+      name: 'chromium-footer',
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+      testMatch: /.*footer\.spec\.js/,
+    }
   ],
 
   /* Run your local dev server before starting the tests */
