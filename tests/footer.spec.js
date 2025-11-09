@@ -4,7 +4,7 @@ import { Footer } from "../pages/Footer";
 
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
-let providers=[
+const icon=[
         { name: 'discord', urlRegex: /discord\.com\/invite/, checkText: 'Questera' },
         { name: 'youtube', urlRegex: /youtube\.com/, checkText: 'Questera'},
         { name: 'instagram',urlRegex: /instagram\.com\/questera_games/, checkText:'questera_games'},
@@ -12,11 +12,19 @@ let providers=[
         { name: 'tiktok', urlRegex: /tiktok\.com\/@questera\.games/, checkText:'questera.games'}
     ]
 
+const footerLinks=[
+    {name:'FAQ', url:'/terms-of-service'},
+    {name:'How it work', url:'/cookie-policy'},
+    {name:'Terms of Use', url:'/refund-policy'},
+    {name:'Privacy Policy', url:'/eula'},
+    {name:'Refund Policy', url:'/eula'}
+]
+
 test.describe("Footer testing redirect", ()=>{
 
     let loginPage;    
-    for(const provider of providers){
-        test(`test redirect ${provider.name} icon`, async ({page,context})=>{
+    for(const provider of icon){
+        test(`Click ${provider.name} icon`, async ({page,context})=>{
             loginPage=new LoginPage(page,ENVIRONMENT);            
             await loginPage.openPage();
             const footer=new Footer(page,ENVIRONMENT);
@@ -28,4 +36,15 @@ test.describe("Footer testing redirect", ()=>{
 
         })
     }
+
+
+    test('click "Help" footer link', async ({page})=>{
+        loginPage=new LoginPage(page,ENVIRONMENT);            
+        await loginPage.openPage();
+        const footer=new Footer(page,ENVIRONMENT);
+        await footer.clickFooterLink('Help');
+        await expect(page.getByTestId('widget-title')).toBeVisible({timeout:60000});
+    })
+
+
 })
