@@ -61,7 +61,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
       },
       testMatch: /.*login\.spec\.js/,
-    }
+    },
     {
       name: 'chromium-footer',
       use: {

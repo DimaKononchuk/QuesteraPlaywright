@@ -37,7 +37,7 @@ export class Footer{
     }
 
     async clickIcon(icon){
-        await this.page.locator(`svg-icon.footer__social-item use[href*="#${icon}"]`).click();
+        await this.page.locator(`.footer__social-item_${icon}`).click();
     }
 
 

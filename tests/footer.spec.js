@@ -4,26 +4,27 @@ import { Footer } from "../pages/Footer";
 
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
-
-
-text.describe("Footer testing redirect", ()=>{
-
-    let loginPage;
-
-    let providers=[
-        { name: 'Discord', urlRegex: /discord\.com\/invite/, checkText: 'Questera' },
-        { name: 'Youtube', urlRegex: /youtube\.com\/questera/, checkText: 'Questera'},
-        { name: 'Instagram',urlRegex: /instagram\.com\/questera_games/, checkText:'questera_games'},
-        { name: 'Twitch', urlRegex: /x\.com\/questera_games/, checkText: 'Questera' },
-        { name: 'Tiktok', urlRegex: /tiktok\.com\/questera_games/, checkText:'questera.games'}
+let providers=[
+        { name: 'discord', urlRegex: /discord\.com\/invite/, checkText: 'Questera' },
+        { name: 'youtube', urlRegex: /youtube\.com/, checkText: 'Questera'},
+        { name: 'instagram',urlRegex: /instagram\.com\/questera_games/, checkText:'questera_games'},
+        { name: 'twitter', urlRegex: /x\.com\/QUESTERA_GAMES/, checkText: 'Questera' },
+        { name: 'tiktok', urlRegex: /tiktok\.com\/@questera\.games/, checkText:'questera.games'}
     ]
+
+test.describe("Footer testing redirect", ()=>{
+
+    let loginPage;    
     for(const provider of providers){
-        test(`test redirect ${icon} icon`, async({page})=>{
-            loginPage=new LoginPage(page,ENVIRONMENT);
+        test(`test redirect ${provider.name} icon`, async ({page,context})=>{
+            loginPage=new LoginPage(page,ENVIRONMENT);            
+            await loginPage.openPage();
             const footer=new Footer(page,ENVIRONMENT);
-            footer.clickIcon(provider.name);
-            await page.waitForURL(provider.urlRegex);
-            await expect(page.getByText(provider.checkText)).toBeVisible({timeout:60000});
+            const pagePromise = context.waitForEvent('page');            
+            await footer.clickIcon(provider.name);
+            const newPage = await pagePromise;
+            await newPage.waitForURL(provider.urlRegex);
+            await expect(newPage.getByText(provider.checkText).nth(0)).toBeVisible({timeout:60000});
 
         })
     }
