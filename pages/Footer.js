@@ -10,32 +10,12 @@ export class Footer{
         this.env=env;
     }
 
-    async clickHelp(){
-        await this.page.locator('.footer__link',{hasText:'Help'}).click();
-    }
 
-    
-    async clickFAQ(){
-        await this.page.locator('.footer__link',{hasText:'FAQ'}).click();
-    }
-
-    async clickHowItWorks(){
-        await this.page.locator('.footer__link',{hasText:'How It Works'}).click();
-    }
-
-    async clickTermsOfUse (){
-        await this.page.locator('.footer__link',{hasText:'Terms of Use'}).click();
-    }
-
-    async clickPrivacyPolicy  (){
-        await this.page.locator('.footer__link',{hasText:'Privacy Policy'}).click();
-    }
-
-    async clickRefundPolicy  (){
-        await this.page.locator('.footer__link',{hasText:'Refund Policy'}).click();
+    async clickFooterLink(link){
+        await this.page.locator('.footer__link',{hasText:link}).click();
         
     }
-
+    
     async clickIcon(icon){
         await this.page.locator(`.footer__social-item_${icon}`).click();
     }
