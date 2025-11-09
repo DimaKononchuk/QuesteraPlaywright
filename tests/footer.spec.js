@@ -43,7 +43,8 @@ test.describe("Footer testing redirect", ()=>{
         await loginPage.openPage();
         const footer=new Footer(page,ENVIRONMENT);
         await footer.clickFooterLink('Help');
-        await expect(page.getByTestId('widget-title')).toBeVisible({timeout:60000});
+        const frameLocator = page.frameLocator('#webWidget'); // або конкретний селектор iframe
+        await expect(frameLocator.locator('h1[id="widgetHeaderTitle"]')).toBeVisible({ timeout: 60000 });
     })
 
 
