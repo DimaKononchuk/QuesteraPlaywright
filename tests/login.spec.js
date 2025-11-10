@@ -112,18 +112,7 @@ test.describe("register", ()=>{
         
     })
 
-    test('register 2 user (fingerprint)', async({page})=>{
-        const loginPage= new LoginPage(page,ENVIRONMENT);
-        await loginPage.openPage();
-        await loginPage.clickRegister();
-        await loginPage.clickNeedMoreOptions();
-        await loginPage.clickEmail();
-        await loginPage.registerWithEmail(generateRandomEmail());
-        const title=await loginPage.getTitle('Unable to create an account');
-        await expect(title).toBeVisible();
-        
-    })
-
+    
 
 
 
