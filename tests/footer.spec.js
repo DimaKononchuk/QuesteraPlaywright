@@ -13,11 +13,15 @@ const icon=[
     ]
 
 const htmlRedirect=[
-    {name:'Terms of Use', url:/cdn\.questera\.games\/docs\/Questera_TOS\.html/, checkText:'Terms of Use'},
-    {name:'Privacy Policy', url:/cdn\.questera\.games\/docs\/Questera_PP\.html/, checkText:'Privacy Policy'},
-    {name:'Refund Policy', url:/cdn\.questera\.games\/docs\/Questera_RP\.html/, checkText:'REFUND AND CANCELLATIONPOLICY'}
+    {name:'Terms of Use', urlRegex:/cdn\.questera\.games\/docs\/Questera_TOS\.html/, checkText:'Terms of Use'},
+    {name:'Privacy Policy', urlRegex:/cdn\.questera\.games\/docs\/Questera_PP\.html/, checkText:'Privacy Policy'},
+    {name:'Refund Policy', urlRegex:/cdn\.questera\.games\/docs\/Questera_RP\.html/, checkText:'REFUND AND CANCELLATIONPOLICY'}
 ]
 
+const zendeskRedirect=[
+    {name:'FAQ', urlRegex: /questera\.zendesk\.com/},
+    {name:'How it work', urlRegex:/questera\.zendesk\.com/},
+]
 test.describe("Footer testing redirect", ()=>{
 
     let loginPage;    
@@ -46,7 +50,7 @@ test.describe("Footer testing redirect", ()=>{
     })
 
     for(const link of htmlRedirect){
-        test(`click ${link.name} link`, async({page,context})=>{
+        test(`click ${link.name} link (html document)`, async({page,context})=>{
             loginPage=new LoginPage(page,ENVIRONMENT);            
             await loginPage.openPage();
             const footer=new Footer(page,ENVIRONMENT);
@@ -55,6 +59,20 @@ test.describe("Footer testing redirect", ()=>{
             const newPage = await pagePromise;
             await newPage.waitForURL(link.urlRegex);
             await expect(newPage.getByText(link.checkText).nth(0)).toBeVisible({timeout:60000});
+            
+        })
+    }
+
+    for(const link of zendeskRedirect){
+        test(`click ${link.name} link (zendesk)`, async({page,context})=>{
+            loginPage=new LoginPage(page,ENVIRONMENT);            
+            await loginPage.openPage();
+            const footer=new Footer(page,ENVIRONMENT);
+            const pagePromise = context.waitForEvent('page');            
+            await footer.clickFooterLink(link.name);
+            const newPage = await pagePromise;
+            await newPage.waitForURL(link.urlRegex);
+            await expect(newPage.getByRole('link', { name: 'Questera Help Center home page' })).toBeVisible({timeout:60000});
             
         })
     }
