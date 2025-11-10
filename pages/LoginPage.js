@@ -17,7 +17,12 @@ export class LoginPage{
         await this.page.goto('https://'+this.env+'.questera.games/');
     }
 
-    
+    async openLoginPage(){
+        await this.page.goto('https://identity.'+this.env+'.questera.games/register');
+    }
+    async openRegisterPage(){
+        await this.page.goto('https://'+this.env+'.questera.games/');
+    }
     async clickLogin() {
         await this.page.getByRole('button', { name: 'Log in' }).click();
     }
