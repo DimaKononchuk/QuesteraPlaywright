@@ -4,6 +4,7 @@ import { LoginPage } from '../pages/LoginPage';
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 const EMAIL=process.env.TEST_EMAIL;
+const BANNEDEMAIL=process.env.TEST_BANNED_EMAIL;
 const PASSWORD=process.env.TEST_PASSWORD;
 
 const providers = [
@@ -49,12 +50,19 @@ test.describe("login v1.1", ()=>{
     })
     test('mail login invalid password', async({page})=>{
         const loginPage= new LoginPage(page,ENVIRONMENT);
-
         await loginPage.openPage();
         await loginPage.clickLogin();
         await loginPage.loginWithEmail(EMAIL,"PASSWORD122");
         await expect(page.getByText('Invalid credentials')).toBeVisible();
             
+    })
+
+    test('mail login baned user', async({page})=>{
+        const loginPage= new LoginPage(page,ENVIRONMENT);
+        await loginPage.openPage();
+        await loginPage.clickLogin();
+        await loginPage.loginWithEmail(BANNEDEMAIL,PASSWORD);
+        await expect(page.getByText('Your account has been banned')).toBeVisible();
     })
 })
 
@@ -100,6 +108,18 @@ test.describe("register", ()=>{
         await loginPage.clickEmail();
         await loginPage.registerWithEmail(EMAIL);
         const title=await loginPage.getTitle('Email is already exist');
+        await expect(title).toBeVisible();
+        
+    })
+
+    test('register 2 user (fingerprint)', async({page})=>{
+        const loginPage= new LoginPage(page,ENVIRONMENT);
+        await loginPage.openPage();
+        await loginPage.clickRegister();
+        await loginPage.clickNeedMoreOptions();
+        await loginPage.clickEmail();
+        await loginPage.registerWithEmail(generateRandomEmail());
+        const title=await loginPage.getTitle('Unable to create an account');
         await expect(title).toBeVisible();
         
     })
