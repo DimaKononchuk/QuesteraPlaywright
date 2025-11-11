@@ -77,4 +77,9 @@ test.describe("Footer testing redirect", ()=>{
         })
     }
 
+    test.afterEach(async ({ page }) => {
+        page.close();
+    
+    });
+
 })
