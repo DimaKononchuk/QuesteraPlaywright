@@ -39,12 +39,12 @@ export class LoginPage{
         await this.page.getByRole('button', { name: 'Register' }).click();
     }
 
-    async getTitle(){
-        return await this.page.locator('div.login-selector__title');
+    getTitle(){
+        return this.page.locator('div.login-selector__title');
     }
 
-    async getTitle(title){
-        return await this.page.locator('div.login-selector__title', { hasText: title });
+    getTitle(title){
+        return this.page.locator('div.login-selector__title', { hasText: title });
     }
     
     async loginWithProvider(provider) {
