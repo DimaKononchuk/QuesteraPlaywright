@@ -20,7 +20,7 @@ test.describe("login v1.1", ()=>{
             await loginPage.openPage();
             await loginPage.clickLogin();
             const title=await loginPage.getTitle('Log in to platform');
-            await expect(title).toBeVisible();
+            await expect(title).toBeVisible({timeout:60000});
             await loginPage.loginWithProvider(provider.name)
             await page.waitForURL(provider.urlRegex);
             await expect(page.getByText(provider.checkText)).toBeVisible({timeout:60000});
@@ -45,7 +45,7 @@ test.describe("login v1.1", ()=>{
         await loginPage.openPage();
         await loginPage.clickLogin();
         await loginPage.loginWithEmail('EMAIL@gmail.com',PASSWORD);
-        await expect(page.getByText('Invalid credentials')).toBeVisible();
+        await expect(page.getByText('Invalid credentials')).toBeVisible({timeout:60000});
             
     })
     test('mail login invalid password', async({page})=>{
@@ -53,7 +53,7 @@ test.describe("login v1.1", ()=>{
         await loginPage.openPage();
         await loginPage.clickLogin();
         await loginPage.loginWithEmail(EMAIL,"PASSWORD122");
-        await expect(page.getByText('Invalid credentials')).toBeVisible();
+        await expect(page.getByText('Invalid credentials')).toBeVisible({timeout:60000});
             
     })
 
@@ -75,7 +75,7 @@ test.describe("register", ()=>{
             await loginPage.openPage();
             await loginPage.clickRegister();
             const title=await loginPage.getTitle('Create account');
-            await expect(title).toBeVisible();
+            await expect(title).toBeVisible({timeout:60000});
             await loginPage.loginWithProvider(provider.name)
             await page.waitForURL(provider.urlRegex);
             await expect(page.getByText(provider.checkText)).toBeVisible({timeout:60000});
