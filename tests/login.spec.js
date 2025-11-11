@@ -83,18 +83,29 @@ test.describe("register", ()=>{
         })
     }
 
-    test('mail register valid credentials', async({page})=>{
+    test('mail register valid credentials (fingerprint)', async({page})=>{
         const loginPage= new LoginPage(page,ENVIRONMENT);
         await loginPage.openPage();
         await loginPage.clickRegister();
         await loginPage.clickNeedMoreOptions();
         await loginPage.clickEmail();
+        const fingerParams= await page.evaluate(()=>{
+            return sessionStorage.getItem('@fpjs@client@__null__null__false');
+        })
         await loginPage.registerWithEmail(generateRandomEmail());
         await expect(page.getByText('Valid email format')).toBeVisible();
-        await loginPage.registerWithPassword(PASSWORD);
+        await loginPage.clickNextBtn();
+        if(fingerParams){
+            await expect(page.locator('.identity-error__title', { hasText: 'Unable to create an account' })).toBeVisible();
+        }else{
+            loginPage.registerWithPassword(PASSWORD);
         await expect(page.locator('.register-success-section__title', { hasText: 'Confirmation' })).toBeVisible();
-            
+        }
+        
     })
+
+
+
     function generateRandomEmail() {
         const randomNumber = Math.floor(Math.random() * 10000); // 0–9999
         return `questeratest${randomNumber}@questera.test`;
