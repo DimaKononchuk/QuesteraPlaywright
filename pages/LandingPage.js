@@ -14,6 +14,9 @@ export class LandingPage{
     async openPage(){
         await this.page.goto('https://'+this.env+'.questera.games/');
     }
+    async clickHeaderIcon(icon){
+        await this.page.locator(`a[aria-label="${icon}"]`).click();
+    }
 
     async clickLogin() {
         await this.page.getByRole('button', { name: 'Log in' }).click();
@@ -33,12 +36,15 @@ export class LandingPage{
     async clickChallengeNavigation(){
         await this.page.locator('.landing-what-are__nav-item').nth(0).click();
     }
-    async clickLuckyBox(){
+    async clickLuckyBoxNavigation(){
         await this.page.locator('.landing-what-are__nav-item').nth(1).click();
     }
    
     async clickQuestionBlock(){
         await this.page.locator('div.landing-most-popular-questions__block-right-faq').nth(0).click();
     }
-
+    
+    getSlideImg(){
+        return this.page.locator('div.swiper-slide-active');
+    }
 }
