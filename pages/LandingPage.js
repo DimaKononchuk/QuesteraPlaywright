@@ -7,6 +7,8 @@ export class LandingPage{
     constructor(page,env){
         this.page=page;
         this.env=env;
+
+        this.tryFirstChallenge= this.page.locator('button.landing-main-slide__btn');
     }
 
     async openPage(){
@@ -21,8 +23,9 @@ export class LandingPage{
     }
     
     async clickTryFirstChallengeBtn(){
-        await this.page.locator('button.landing-main-slide__btn').click();
+        await this.tryFirstChallenge.click();
     }
+    
     async clickPlayChallenges(){
         await this.page.getByRole('button', { name: 'Play Challenges' }).click();
     }
