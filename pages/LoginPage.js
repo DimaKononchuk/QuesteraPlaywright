@@ -39,6 +39,9 @@ export class LoginPage{
         await this.page.getByRole('button', { name: 'Register' }).click();
     }
 
+    async clickNextBtn(){
+        await this.nextBtn.click();
+    }
     getTitle(){
         return this.page.locator('div.login-selector__title');
     }
