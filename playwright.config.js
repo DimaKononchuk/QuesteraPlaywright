@@ -68,6 +68,13 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
       },
       testMatch: /.*footer\.spec\.js/,
+    },
+    {
+      name: 'chromium-landing',
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+      testMatch: /.*landing\.spec\.js/,
     }
   ],
 
