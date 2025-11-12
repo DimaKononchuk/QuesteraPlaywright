@@ -8,9 +8,17 @@ export class LandingPage{
         this.page=page;
         this.env=env;
 
-        this.tryFirstChallenge= this.page.locator('button.landing-main-slide__btn');
+        this.tryFirstChallenge= page.locator('button.landing-main-slide__btn');
+        this.questionBlock=page.locator('div.landing-most-popular-questions__block-right-faq').nth(0);
+        this.answerBlock=page.locator('div.landing-most-popular-questions__block-right-faq__answer').nth(0);
     }
 
+    getQuestionBlock(){
+        return this.questionBlock;
+    }
+    getAnswerBlock(){
+        return this.answerBlock;
+    }
     async openPage(){
         await this.page.goto('https://'+this.env+'.questera.games/');
     }
@@ -41,7 +49,7 @@ export class LandingPage{
     }
    
     async clickQuestionBlock(){
-        await this.page.locator('div.landing-most-popular-questions__block-right-faq').nth(0).click();
+        await this.questionBlock.click();
     }
     
     getSlideImg(){
