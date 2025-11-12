@@ -19,6 +19,11 @@ export class LandingPage{
     getAnswerBlock(){
         return this.answerBlock;
     }
+
+    getCashClashBlock(){
+        return this.page.locator('.clash__main-wrapper');
+    }
+    
     async openPage(){
         await this.page.goto('https://'+this.env+'.questera.games/');
     }
@@ -54,7 +59,11 @@ export class LandingPage{
     async clickSupportTeamLink(){
         await this.page.locator('.support-team-link').click();
     }
+    async clickToUpPrizePoolBtn(){
+        await this.page.locator('.btn-clash-secondary').nth(1).click();
+    }
     getSlideImg(){
         return this.page.locator('div.swiper-slide-active');
     }
+    
 }

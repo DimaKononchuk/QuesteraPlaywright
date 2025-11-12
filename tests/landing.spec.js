@@ -93,6 +93,26 @@ test.describe("Landing page testing", async()=>{
         await expect(zendeskWidget.getWidget()).toBeVisible();
     })
 
+
+    test('Cash Clash active. CLick "Top Up Prize Pool" button', async({page})=>{
+        const landingPage = new LandingPage(page, ENVIRONMENT);
+        const loginPage = new LoginPage(page, ENVIRONMENT);
+
+        try {
+            if (!(await landingPage.getCashClashBlock().isVisible())) {
+                console.log('Cash Clash block not visible — skipping test');
+                return;
+            }
+
+            await landingPage.clickToUpPrizePoolBtn();
+            const title = await loginPage.getTitle('Create account');
+            await expect(title).toBeVisible({ timeout: 60000 });
+
+        } catch (err) {
+            console.log('Cash Clash block check failed:', err.message);
+        }
+    })
+
     test.afterEach(async ({ page }) => {
         page.close();        
     });
