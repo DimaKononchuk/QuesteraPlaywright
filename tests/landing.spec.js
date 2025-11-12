@@ -1,6 +1,7 @@
 import test, { page,expect } from "@playwright/test";
 import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from '../pages/LoginPage';
+import { CookieBanner } from "../pages/CookieBanner";
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
 const icon=[
@@ -14,6 +15,11 @@ test.describe("Landing page testing", async()=>{
     test.beforeEach(async ({ page }) => {
         const landingPage = new LandingPage(page, ENVIRONMENT);
         await landingPage.openPage();
+        const cookieBanner=new CookieBanner(page);
+
+        if(await cookieBanner.isVisible()){
+            await cookieBanner.clickClose();
+        }
 
       });
 
