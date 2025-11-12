@@ -71,6 +71,18 @@ test.describe("Landing page testing", async()=>{
         await expect(title).toBeVisible();
     })
 
+    test('check "FAQ" accordion', async({page})=>{
+        const landingPage=new LandingPage(page,ENVIRONMENT);
+        await expect(landingPage.getAnswerBlock()).toBeEnabled();
+        await landingPage.clickQuestionBlock();
+        await expect(landingPage.getQuestionBlock()).toHaveClass(/active/);
+        await expect(landingPage.getAnswerBlock()).toHaveClass(/show-faq-answer/);
+        await expect(landingPage.getAnswerBlock()).toBeVisible();
+        await landingPage.clickQuestionBlock();
+        await expect(landingPage.getQuestionBlock()).not.toHaveClass(/active/);
+        await expect(landingPage.getAnswerBlock()).not.toHaveClass(/show-faq-answer/);
+        await expect(landingPage.getAnswerBlock()).toBeEnabled();
+    })
     test.afterEach(async ({ page }) => {
         page.close();        
     });
