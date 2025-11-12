@@ -2,6 +2,7 @@ import test, { page,expect } from "@playwright/test";
 import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from '../pages/LoginPage';
 import { CookieBanner } from "../pages/CookieBanner";
+import { ZendeskWidget } from "../pages/Widget/ZendeskWidget";
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
 const icon=[
@@ -83,6 +84,15 @@ test.describe("Landing page testing", async()=>{
         await expect(landingPage.getAnswerBlock()).not.toHaveClass(/show-faq-answer/);
         await expect(landingPage.getAnswerBlock()).toBeHidden();
     })
+
+    test('click "support team" link', async({page})=>{
+        const landingPage=new LandingPage(page,ENVIRONMENT);
+        const zendeskWidget=new ZendeskWidget(page);
+        await landingPage.clickSupportTeamLink()
+        await page.waitForTimeout(2500);
+        await expect(zendeskWidget.getWidget()).toBeVisible();
+    })
+
     test.afterEach(async ({ page }) => {
         page.close();        
     });

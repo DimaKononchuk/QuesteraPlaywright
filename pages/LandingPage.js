@@ -51,7 +51,9 @@ export class LandingPage{
     async clickQuestionBlock(){
         await this.questionBlock.click();
     }
-    
+    async clickSupportTeamLink(){
+        await this.page.locator('.support-team-link').click();
+    }
     getSlideImg(){
         return this.page.locator('div.swiper-slide-active');
     }
