@@ -1,6 +1,7 @@
 import test, { page,expect } from "@playwright/test";
 import { LoginPage } from '../pages/LoginPage';
 import { Footer } from "../pages/Footer";
+import { ZendeskWidget } from "../pages/Widget/ZendeskWidget";
 
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
@@ -45,8 +46,9 @@ test.describe("Footer testing redirect", ()=>{
         await loginPage.openPage();
         const footer=new Footer(page,ENVIRONMENT);
         await footer.clickFooterLink('Help');
-        const frameLocator = page.frameLocator('#webWidget'); // або конкретний селектор iframe
-        await expect(frameLocator.locator('h1[id="widgetHeaderTitle"]')).toBeVisible({ timeout: 60000 });
+        const zendeskWidget=new ZendeskWidget(page)
+        await page.waitForTimeout(2500);
+        await expect(zendeskWidget.getWidget()).toBeVisible();
     })
 
     for(const link of htmlRedirect){
