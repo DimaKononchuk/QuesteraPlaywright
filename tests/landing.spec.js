@@ -61,7 +61,19 @@ test.describe("Landing page testing", async()=>{
         const slide =await page.locator('.swiper-slide-active img');
         await expect(slide).toHaveScreenshot('../img/luckyBoxNavigationImg.png')
     })
+
+    test('click "Play Challenge" button', async({page})=>{
+        const landingPage=new LandingPage(page,ENVIRONMENT);
+        const loginPage=new LoginPage(page,ENVIRONMENT);
+        await landingPage.clickPlayChallenges();
+        await page.waitForURL(/identity\.dev\.questera\.games/)
+        const title=loginPage.getTitle('Create account');
+        await expect(title).toBeVisible();
+    })
+
     test.afterEach(async ({ page }) => {
         page.close();        
     });
+
+    
 })
