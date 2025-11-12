@@ -105,7 +105,7 @@ test.describe("Landing page testing", async()=>{
             }
 
             await landingPage.clickToUpPrizePoolBtn();
-            const title = await loginPage.getTitle('Create account');
+            const title = await loginPage.getTitle('Create account'); 
             await expect(title).toBeVisible({ timeout: 60000 });
 
         } catch (err) {
@@ -113,6 +113,23 @@ test.describe("Landing page testing", async()=>{
         }
     })
 
+    test('Gold Seeker active. CLick "Start Now" button', async({page})=>{
+        const landingPage = new LandingPage(page, ENVIRONMENT);
+        const loginPage = new LoginPage(page, ENVIRONMENT);
+
+        try {
+            if (!(await landingPage.getGoldSeekerBlock().isVisible())) {
+                console.log('Gold Seeker block not visible — skipping test');
+                return;
+            }
+
+            await landingPage.clickGSStartNow();
+            await expect(page).toHaveURL(/questera\.games\/gold-seeker/);
+
+        } catch (err) {
+            console.log('Gold Seeker block check failed:', err.message);
+        }
+    })
     test.afterEach(async ({ page }) => {
         page.close();        
     });

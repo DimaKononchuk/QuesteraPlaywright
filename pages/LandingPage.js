@@ -23,7 +23,11 @@ export class LandingPage{
     getCashClashBlock(){
         return this.page.locator('.clash__main-wrapper');
     }
+    getGoldSeekerBlock(){
+        return this.page.locator('.seeker-block');
+    }
     
+
     async openPage(){
         await this.page.goto('https://'+this.env+'.questera.games/');
     }
@@ -61,6 +65,9 @@ export class LandingPage{
     }
     async clickToUpPrizePoolBtn(){
         await this.page.locator('.btn-clash-secondary').nth(1).click();
+    }
+    async clickGSStartNow(){
+        await this.page.locator('[aria-label="Gold Seeker"]').click();
     }
     getSlideImg(){
         return this.page.locator('div.swiper-slide-active');
