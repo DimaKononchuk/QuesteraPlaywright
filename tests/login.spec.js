@@ -86,25 +86,24 @@ test.describe('Register', () => {
 
   test('mail register valid credentials (fingerprint)', async ({ page }) => {
     const loginPage = new LoginPage(page, ENVIRONMENT);
-    await loginPage.clickNeedMoreOptions();
     await loginPage.clickEmail();
-    const fingerParams = await page.evaluate(() => {
+    const fingerParams = await page.waitForFunction(() => {
       return sessionStorage.getItem('@fpjs@client@__null__null__false');
-    });
+    }, null, { timeout: 5000 });
     await loginPage.registerWithEmail(generateRandomEmail());
-    await expect(page.getByText('Valid email format')).toBeVisible();
-    await loginPage.clickNextBtn();
+    
     if (fingerParams) {
       await expect(page.locator('.identity-error__title', { hasText: 'Unable to create an account' })).toBeVisible();
     } else {
       await loginPage.registerWithPassword(PASSWORD);
       await expect(page.locator('.register-success-section__title', { hasText: 'Confirmation' })).toBeVisible();
+      
     }
   });
 
   test('register used mail', async ({ page }) => {
     const loginPage = new LoginPage(page, ENVIRONMENT);
-    await loginPage.clickNeedMoreOptions();
+    
     await loginPage.clickEmail();
     await loginPage.registerWithEmail(EMAIL);
     const title = await loginPage.getTitle('Email is already exist');

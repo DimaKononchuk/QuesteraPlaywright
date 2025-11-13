@@ -68,8 +68,10 @@ export class LoginPage{
         const checkbox= await this.page.locator('span').first();        
         await checkbox.click();
         await expect(this.nextBtn).toBeDisabled();
-        await this.emailInput.fill(email);  
-        await this.nextBtn.click();     
+        await this.emailInput.fill(email);
+        await expect(this.page.getByText('Valid email format')).toBeVisible();
+        await this.nextBtn.click();
+          
     }
 
     async registerWithPassword(password){        
@@ -77,5 +79,6 @@ export class LoginPage{
         await expect(this.nextBtn).toBeDisabled();
         await this.passwordInput.fill(password);
         await this.nextBtn.click();
+        
     }
 }
