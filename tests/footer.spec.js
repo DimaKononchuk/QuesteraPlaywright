@@ -1,6 +1,6 @@
 import test, { page,expect } from "@playwright/test";
 import { LoginPage } from '../pages/LoginPage';
-import { Footer } from "../pages/Footer";
+import { Footer } from "../pages/Components/Footer";
 import { ZendeskWidget } from "../pages/Widget/ZendeskWidget";
 
 

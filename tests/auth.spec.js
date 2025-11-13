@@ -5,7 +5,7 @@ import { LoginPage } from '../pages/LoginPage';
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
-const EMAIL=process.env.TEST_EMAIL;
+const EMAIL=process.env.TEST_USER;
 const PASSWORD=process.env.TEST_PASSWORD;
 
 test('get user token', async({page})=>{
