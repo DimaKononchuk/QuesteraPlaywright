@@ -11,14 +11,26 @@ export class LandingPage{
         this.tryFirstChallenge= page.locator('button.landing-main-slide__btn');
         this.questionBlock=page.locator('div.landing-most-popular-questions__block-right-faq').nth(0);
         this.answerBlock=page.locator('div.landing-most-popular-questions__block-right-faq__answer').nth(0);
+        this.landingLanguage=page.locator('.landing__language-btn');
+        this.landingLanguageMenu=page.locator('.landing__language-menu');
+        this.landingLanguageItem=page.locator('.language-menu__item');
     }
 
+
+    async openPage(){
+        await this.page.goto('https://'+this.env+'.questera.games/');
+    }
+
+    getTitle(){
+        return this.page.locator('.landing-main-slide__title');
+    }
     getQuestionBlock(){
         return this.questionBlock;
     }
     getAnswerBlock(){
         return this.answerBlock;
     }
+
 
     getCashClashBlock(){
         return this.page.locator('.clash__main-wrapper');
@@ -27,9 +39,22 @@ export class LandingPage{
         return this.page.locator('.seeker-block');
     }
     
+    getLandingLanguage(){
+        return this.landingLanguage;
+    } 
 
-    async openPage(){
-        await this.page.goto('https://'+this.env+'.questera.games/');
+    getLandingLanguageMenu(){
+        return this.landingLanguageMenu;
+    }
+
+    getLandingLanguageItem(){
+        return this.landingLanguageItem;
+    }
+    async clickLandingLanguageItem(language){
+        await this.landingLanguageItem.filter({hasText:language}).click({force:true});
+    }
+    async clickLandingLanguage(){
+        await this.landingLanguage.click();
     }
     async clickHeaderIcon(icon){
         await this.page.locator(`a[aria-label="${icon}"]`).click();

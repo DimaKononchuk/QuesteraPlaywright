@@ -130,6 +130,19 @@ test.describe("Landing page testing", async()=>{
             console.log('Gold Seeker block check failed:', err.message);
         }
     })
+
+    test('language menu. Change language', async({page})=>{
+        const landingPage = new LandingPage(page, ENVIRONMENT);
+        await expect(landingPage.getLandingLanguage()).toBeVisible();
+        await landingPage.clickLandingLanguage();
+        await expect(landingPage.getLandingLanguage()).toHaveClass(/landing__language-btn_active/);
+        await expect(landingPage.getLandingLanguageMenu()).toBeAttached();
+        await expect(landingPage.getLandingLanguageMenu()).toBeVisible();
+        await expect(landingPage.getLandingLanguageItem().filter({hasText:'Українська'})).toBeVisible();
+        await landingPage.clickLandingLanguageItem('Українська');
+        await page.waitForURL(/ua/);
+        await expect(landingPage.getTitle()).toHaveText('Перемагайте в Dota 2 та отримуйте нагороди!');
+    })
     test.afterEach(async ({ page }) => {
         page.close();        
     });
