@@ -1,7 +1,7 @@
 import test, { page,expect } from "@playwright/test";
 import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from '../pages/LoginPage';
-import { CookieBanner } from "../pages/CookieBanner";
+import { CookieBanner } from "../pages/Widget/CookieBanner";
 import { ZendeskWidget } from "../pages/Widget/ZendeskWidget";
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
@@ -11,6 +11,12 @@ const icon=[
         { name: 'Instagram',urlRegex: /instagram\.com\/questera_games/, checkText:'questera_games'},
         { name: 'Tiktok', urlRegex: /tiktok\.com\/@questera\.games/, checkText:'questera.games'}
     ]
+
+const htmlRedirect=[
+    {name:'Terms of Use', urlRegex:/cdn\.questera\.games\/docs\/Questera_TOS\.html/, checkText:'Terms of Use'},
+    {name:'Privacy Policy', urlRegex:/cdn\.questera\.games\/docs\/Questera_PP\.html/, checkText:'Privacy Policy'},    
+]
+
 test.describe("Landing page testing", async()=>{
 
     test.beforeEach(async ({ page }) => {
@@ -143,9 +149,48 @@ test.describe("Landing page testing", async()=>{
         await page.waitForURL(/ua/);
         await expect(landingPage.getTitle()).toHaveText('Перемагайте в Dota 2 та отримуйте нагороди!');
     })
-    test.afterEach(async ({ page }) => {
+
+
+     test.afterEach(async ({ page }) => {
         page.close();        
     });
 
     
+})
+
+test.describe('Cookie banner test', ()=>{
+     test.beforeEach(async ({ page }) => {
+        const landingPage = new LandingPage(page, ENVIRONMENT);
+        await landingPage.openPage();
+    });
+
+    for (const link of htmlRedirect){
+        test(`Cookie baner. click "${link.name}" link`, async({page,context})=>{
+            const cookieBanner=new CookieBanner(page);
+            const pagePromise = context.waitForEvent('page'); 
+            await expect(cookieBanner.getLink(link.name)).toBeVisible();
+            await cookieBanner.clickLink(link.name);
+            const newPage = await pagePromise;
+            await newPage.waitForURL(link.urlRegex);
+            await expect(newPage.getByText(link.checkText).nth(0)).toBeVisible({timeout:60000});
+            
+        })
+    }
+    
+    test('Cookie baner. Click "Ok, Don\'t show again" button', async({page})=>{
+        const cookieBanner=new CookieBanner(page);    
+        let isQCookieShown= await page.evaluate(()=> localStorage.getItem('isQCookieShown')==null);
+        await expect(isQCookieShown).toBe(true);
+        await expect(cookieBanner.getBanner()).toBeVisible();
+        await cookieBanner.clickDontShowAgain();
+        await expect(cookieBanner.getBanner()).toBeHidden();
+        isQCookieShown = await page.evaluate(() => localStorage.getItem('isQCookieShown') === null);
+        expect(isQCookieShown).toBe(false);
+        await page.reload();
+        await expect(cookieBanner.getBanner()).toBeHidden();
+    })
+     test.afterEach(async ({ page }) => {
+        page.close();        
+    });
+
 })
