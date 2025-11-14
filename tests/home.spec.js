@@ -5,9 +5,18 @@ import { Header } from "../pages/Components/Header";
 import { WalletPage } from "../pages/WalletPage";
 import { SettingsPage } from "../pages/SettingsPage";
 import { OverlayPage } from "../pages/OverlayPage";
+import { PortalMenu } from "../pages/Components/PortalMenu";
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
+const profileMenu=[
+    {name:'Settings', regexUrl:/\/profile\/settings$/,title:'Settings'},
+    {name:'Wallet', regexUrl:/\/profile\/wallet$/,title:'Wallet'},
+    {name:'Subscription', regexUrl:/\/profile\/subscription$/,title:'Subscription'},
+    {name:'Bonuses', regexUrl:/\/profile\/rewards$/,title:'Bonuses'},
+    {name:'Referral system', regexUrl:/\/profile\/referral$/,title:'Referral system'}
+
+]
 
 
 test.describe('(Home Page) testing redirect',()=>{
@@ -102,6 +111,27 @@ test.describe("Header testing", ()=>{
 
     })
 
+    for(const item of profileMenu){
+        test(`Profile Menu. click "${item.name}"`, async({page})=>{
+            const portalMenu=new PortalMenu(page);
+            await expect(header.getBuyEnergyBtn()).toBeVisible();
+            await expect(header.getBurgerMenu()).toBeHidden();
+            await header.getDropDownToogle().click();
+            await expect(header.getBurgerMenu()).toBeVisible();
+            await header.getBurgerMenuItem(item.name).hover();
+            await expect(header.getBurgerMenuItem(item.name)).toHaveCSS('color', 'rgb(255, 255, 255)');
+            await header.getBurgerMenuItem(item.name).click();            
+            await page.waitForURL(item.regexUrl);
+            await expect(header.getBurgerMenu()).toBeHidden();
+            await expect(portalMenu.getPortalMenuItem(item.title)).toBeVisible();
+            await expect(portalMenu.getPortalMenuItem(item.title)).toHaveClass(/game-button_active/);
+            await expect(portalMenu.getPortalMenuItem(item.title)).toHaveCSS('color', 'rgb(187, 160, 114)');
+            await header.getDropDownToogle().click();
+            await expect(header.getBurgerMenu()).toBeVisible();
+            await expect(header.getBurgerMenuItem(item.title)).toHaveClass(/game-button_active/);
+            await expect(header.getBurgerMenuItem(item.title)).toHaveCSS('color', 'rgb(187, 160, 114)');
+        })
+    }
     test.afterEach(async ({ page }) => {
         page.close();        
     });
