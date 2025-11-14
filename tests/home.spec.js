@@ -69,35 +69,39 @@ test.describe("Header testing", ()=>{
         await header.getBuyEnergyBtn().click();
         await page.waitForURL(/\/profile\/wallet\/top-up$/);
         const walletPage=new WalletPage(page,ENVIRONMENT);
-        await expect(walletPage.getProfileTitle()).toBeVisible();
-        await expect(walletPage.getProfileTitle()).toHaveText('Deposit balance');
+        const walletTitle=walletPage.getProfileTitle()
+        await expect(walletTitle).toBeVisible();
+        await expect(walletTitle).toHaveText('Deposit balance');
     })
     test('click Avatar icon', async({page})=>{
         await expect(header.getBuyEnergyBtn()).toBeVisible();
         await header.getAvatarIcon().click();
         const settingsPage=new SettingsPage(page,ENVIRONMENT);
         await page.waitForURL(/\/profile\/settings$/);
-        await expect(settingsPage.getProfileTitle()).toBeVisible();
-        await expect(settingsPage.getProfileTitle()).toHaveText('Personal info');
+        const settingsTitle=settingsPage.getProfileTitle();
+        await expect(settingsTitle).toBeVisible();
+        await expect(settingsTitle).toHaveText('Personal info');
     })
     
     test('click dropdown toogle', async({page})=>{
         await expect(header.getBuyEnergyBtn()).toBeVisible();
-        await expect(header.getBurgerMenu()).toBeHidden();
+        const burgerMenu=header.getBurgerMenu();
+        await expect(burgerMenu).toBeHidden();
         await header.getDropDownToogle().click();
-        await expect(header.getBurgerMenu()).toBeVisible();
+        await expect(burgerMenu).toBeVisible();
         await expect(header.getBurgerMenuItem('Settings')).toBeVisible();
         await header.getDropDownToogle().click();
-        await expect(header.getBurgerMenu()).toBeHidden();
+        await expect(burgerMenu).toBeHidden();
     })
 
     test('click notification menu', async({page})=>{
         await expect(header.getNotificationsMenu()).toBeVisible();
-        await expect(header.getNotificationsMenuList()).toBeHidden();
+        const notificationsMenuList=header.getNotificationsMenuList()
+        await expect(notificationsMenuList).toBeHidden();
         await header.getNotificationsMenu().click();
-        await expect(header.getNotificationsMenuList()).toBeVisible();
+        await expect(notificationsMenuList).toBeVisible();
         await header.getNotificationsMenu().click();
-        await expect(header.getNotificationsMenuList()).toBeHidden();
+        await expect(notificationsMenuList).toBeHidden();
     })
 
     test("click overlay button", async({page})=>{
@@ -115,52 +119,70 @@ test.describe("Header testing", ()=>{
 
     for(const item of profileMenu){
         test(`Profile Menu. click "${item.name}"`, async({page})=>{
-            const portalMenu=new PortalMenu(page);
+            const portalMenu = new PortalMenu(page);
+            const dropdownToggle = header.getDropDownToogle();
+            const burgerMenu = header.getBurgerMenu();
+            const menuItem = header.getBurgerMenuItem(item.name);
+            const portalMenuItem = portalMenu.getPortalMenuItem(item.title);
             await expect(header.getBuyEnergyBtn()).toBeVisible();
-            await expect(header.getBurgerMenu()).toBeHidden();
-            await header.getDropDownToogle().click();
-            await expect(header.getBurgerMenu()).toBeVisible();
-            await header.getBurgerMenuItem(item.name).hover();
-            await expect(header.getBurgerMenuItem(item.name)).toHaveCSS('color', 'rgb(255, 255, 255)');
-            await header.getBurgerMenuItem(item.name).click();            
+            await expect(burgerMenu).toBeHidden();
+            await dropdownToggle.click();
+            await expect(burgerMenu).toBeVisible();
+            await menuItem.hover();
+            await expect(menuItem).toHaveCSS('color', 'rgb(255, 255, 255)');
+            await menuItem.click();
             await page.waitForURL(item.regexUrl);
-            await expect(header.getBurgerMenu()).toBeHidden();
-            await expect(portalMenu.getPortalMenuItem(item.title)).toBeVisible();
-            await expect(portalMenu.getPortalMenuItem(item.title)).toHaveClass(/game-button_active/);
-            await expect(portalMenu.getPortalMenuItem(item.title)).toHaveCSS('color', 'rgb(187, 160, 114)');
-            await header.getDropDownToogle().click();
-            await expect(header.getBurgerMenu()).toBeVisible();
-            await expect(header.getBurgerMenuItem(item.title)).toHaveClass(/game-button_active/);
-            await expect(header.getBurgerMenuItem(item.title)).toHaveCSS('color', 'rgb(187, 160, 114)');
+            await expect(burgerMenu).toBeHidden();
+            await expect(portalMenuItem).toBeVisible();
+            await expect(portalMenuItem).toHaveClass(/game-button_active/);
+            await expect(portalMenuItem).toHaveCSS('color', 'rgb(187, 160, 114)');
+            await dropdownToggle.click();
+            await expect(burgerMenu).toBeVisible();
+            const activeBurgerItem = header.getBurgerMenuItem(item.title);
+            await expect(activeBurgerItem).toHaveClass(/game-button_active/);
+            await expect(activeBurgerItem).toHaveCSS('color', 'rgb(187, 160, 114)');
         })
     }
 
     test('Profile Menu. Click "How It Works" item', async({page,context})=>{
-            const pagePromise = context.waitForEvent('page');  
+            const pagePromise = context.waitForEvent('page');
+            const dropdownToggle = header.getDropDownToogle();
+            const burgerMenu = header.getBurgerMenu();
+            const howItWorksItem = header.getBurgerMenuHowItWorksItem();
+           
             await expect(header.getBuyEnergyBtn()).toBeVisible();
-            await expect(header.getBurgerMenu()).toBeHidden();
-            await header.getDropDownToogle().click();
-            await expect(header.getBurgerMenu()).toBeVisible();
-            await header.getBurgerMenuHowItWorksItem().hover();
-            await expect(header.getBurgerMenuHowItWorksItem()).toHaveCSS('color', 'rgb(255, 255, 255)');
-            await header.getBurgerMenuHowItWorksItem().click();
-            const newPage = await pagePromise;            
+            await expect(burgerMenu).toBeHidden();
+            
+            await dropdownToggle.click();
+            await expect(burgerMenu).toBeVisible();
+            
+            await howItWorksItem.hover();
+            await expect(howItWorksItem).toHaveCSS('color', 'rgb(255, 255, 255)');
+            
+            await howItWorksItem.click();
+            const newPage = await pagePromise;
+            
             await newPage.waitForURL(/questera\.zendesk\.com/);
+            
             await expect(newPage.getByRole('heading', { name: 'How it works' })).toBeVisible();
             
     })
 
     test('Profile Menu. Click "Platform support" item', async({page,context})=>{
-            const zendeskWidget=new ZendeskWidget(page);
+            const zendeskWidget = new ZendeskWidget(page);
+
             await expect(header.getBuyEnergyBtn()).toBeVisible();
             await expect(header.getBurgerMenu()).toBeHidden();
+
             await header.getDropDownToogle().click();
             await expect(header.getBurgerMenu()).toBeVisible();
+
             await header.getBurgerMenuSupportItem().hover();
             await expect(header.getBurgerMenuSupportItem()).toHaveCSS('color', 'rgb(255, 255, 255)');
+
             await header.getBurgerMenuSupportItem().click();
-            await page.waitForTimeout(2500);
-            await expect(zendeskWidget.getWidget()).toBeVisible();
+            
+            await expect(zendeskWidget.getWidget()).toBeVisible({ timeout: 10000 });
     })
     test.afterEach(async ({ page }) => {
         page.close();        
@@ -210,7 +232,7 @@ test.describe("Started block", ()=>{
         await expect(portalMenuWalletItem).toHaveClass(/game-button_active/);
         await expect(portalMenuWalletItem).toHaveCSS('color', 'rgb(187, 160, 114)');
     })
-    
+
     test.afterEach(async ({ page }) => {
         page.close();        
     });
