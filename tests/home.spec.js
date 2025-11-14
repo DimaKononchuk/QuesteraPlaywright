@@ -132,6 +132,21 @@ test.describe("Header testing", ()=>{
             await expect(header.getBurgerMenuItem(item.title)).toHaveCSS('color', 'rgb(187, 160, 114)');
         })
     }
+
+    test('Profile Menu. Click "How It Works" item', async({page,context})=>{
+            const pagePromise = context.waitForEvent('page');  
+            await expect(header.getBuyEnergyBtn()).toBeVisible();
+            await expect(header.getBurgerMenu()).toBeHidden();
+            await header.getDropDownToogle().click();
+            await expect(header.getBurgerMenu()).toBeVisible();
+            await header.getBurgerMenuHowItWorksItem().hover();
+            await expect(header.getBurgerMenuHowItWorksItem()).toHaveCSS('color', 'rgb(255, 255, 255)');
+            await header.getBurgerMenuHowItWorksItem().click();
+            const newPage = await pagePromise;            
+            await newPage.waitForURL(/questera\.zendesk\.com/);
+            await expect(newPage.getByRole('heading', { name: 'How it works' })).toBeVisible();
+            
+    })
     test.afterEach(async ({ page }) => {
         page.close();        
     });
