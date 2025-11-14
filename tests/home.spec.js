@@ -6,6 +6,7 @@ import { WalletPage } from "../pages/WalletPage";
 import { SettingsPage } from "../pages/SettingsPage";
 import { OverlayPage } from "../pages/OverlayPage";
 import { PortalMenu } from "../pages/Components/PortalMenu";
+import { ZendeskWidget } from "../pages/Widget/ZendeskWidget";
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
@@ -146,6 +147,19 @@ test.describe("Header testing", ()=>{
             await newPage.waitForURL(/questera\.zendesk\.com/);
             await expect(newPage.getByRole('heading', { name: 'How it works' })).toBeVisible();
             
+    })
+
+    test('Profile Menu. Click "Platform support" item', async({page,context})=>{
+            const zendeskWidget=new ZendeskWidget(page);
+            await expect(header.getBuyEnergyBtn()).toBeVisible();
+            await expect(header.getBurgerMenu()).toBeHidden();
+            await header.getDropDownToogle().click();
+            await expect(header.getBurgerMenu()).toBeVisible();
+            await header.getBurgerMenuSupportItem().hover();
+            await expect(header.getBurgerMenuSupportItem()).toHaveCSS('color', 'rgb(255, 255, 255)');
+            await header.getBurgerMenuSupportItem().click();
+            await page.waitForTimeout(2500);
+            await expect(zendeskWidget.getWidget()).toBeVisible();
     })
     test.afterEach(async ({ page }) => {
         page.close();        
