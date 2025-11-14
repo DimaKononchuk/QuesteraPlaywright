@@ -63,7 +63,7 @@ test.describe("Header testing", ()=>{
     })
     test('click Avatar icon', async({page})=>{
         await expect(header.getBuyEnergyBtn()).toBeVisible();
-        await header.getDropDownToogle().click();
+        await header.getAvatarIcon().click();
         const settingsPage=new SettingsPage(page,ENVIRONMENT);
         await expect(settingsPage.getProfileTitle()).toBeVisible();
         await expect(settingsPage.getProfileTitle()).toHaveText('Personal info');
@@ -100,7 +100,6 @@ test.describe("Header testing", ()=>{
 
 
     })
-
 
     test.afterEach(async ({ page }) => {
         page.close();        
