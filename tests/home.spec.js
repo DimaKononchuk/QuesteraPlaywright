@@ -7,6 +7,8 @@ import { SettingsPage } from "../pages/SettingsPage";
 import { OverlayPage } from "../pages/OverlayPage";
 import { PortalMenu } from "../pages/Components/PortalMenu";
 import { ZendeskWidget } from "../pages/Widget/ZendeskWidget";
+import { SteamAcountPopup } from "../pages/Popup/SteamAccountPopup";
+import { DepositPage } from "../pages/DepositPage";
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
@@ -51,7 +53,6 @@ test.describe('(Home Page) testing redirect',()=>{
 
 
 })
-
 
 test.describe("Header testing", ()=>{
 
@@ -161,6 +162,55 @@ test.describe("Header testing", ()=>{
             await page.waitForTimeout(2500);
             await expect(zendeskWidget.getWidget()).toBeVisible();
     })
+    test.afterEach(async ({ page }) => {
+        page.close();        
+    });
+})
+
+test.describe("Started block", ()=>{
+
+    let home;
+    test.beforeEach(async ({ page }) => {
+        home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.getStartedBlock()).toBeVisible();
+    });
+
+    test('click "Connect Steam Account" block',async({page})=>{
+        const steamAccountPopup=new SteamAcountPopup(page);
+        let steamBlock=home.getStartedItem('1. Connect Steam account');
+        const popup=steamAccountPopup.getPopup();
+        await expect(steamBlock).toBeVisible();
+        await expect(popup).toBeHidden();
+        await steamBlock.click();
+        await page.waitForURL(/games\/home.*[?&]onboarding(?:=|&|$)/);
+        await expect(popup).toBeVisible();
+    })
+
+    test('click "Complete Calibration" block',async({page})=>{
+        const sidebar=new Sidebar(page);
+        let calibrationBlock=home.getStartedItem('2. Complete Calibration');
+        await expect(calibrationBlock).toBeVisible();
+        await calibrationBlock.click();
+        await page.waitForURL(/Dota2\/calibration\/[A-Za-z]+/);
+        const calibrationNav = sidebar.getNavigationItem('Calibration');
+        await expect(calibrationNav).toHaveClass(/navigation__activities__item_active/);
+        await expect(calibrationNav).toHaveCSS('background','rgba(0, 0, 0, 0) linear-gradient(90deg, rgba(255, 117, 1, 0.12), rgba(255, 117, 1, 0)) repeat scroll 0% 0% / auto padding-box border-box');
+    })
+    
+    test('click "Buy Energy" block', async({page})=>{
+        let buyEnergyBlock=home.getStartedItem('3. Buy energy');
+        const depositPage=new DepositPage(page,ENVIRONMENT);
+        const portalMenu=new PortalMenu(page);
+        await expect(buyEnergyBlock).toBeVisible();
+        await buyEnergyBlock.click();
+        await page.waitForURL(/\/profile\/wallet\/top-up$/);
+        await expect(depositPage.getProfileTitle()).toHaveText('Deposit balance');
+        const portalMenuWalletItem=portalMenu.getPortalMenuItem('Wallet');
+        await expect(portalMenuWalletItem).toHaveClass(/game-button_active/);
+        await expect(portalMenuWalletItem).toHaveCSS('color', 'rgb(187, 160, 114)');
+    })
+    
     test.afterEach(async ({ page }) => {
         page.close();        
     });
