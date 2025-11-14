@@ -16,6 +16,8 @@ export class Header{
 
         this.burgerMenu=page.locator('#burgerMenu div[aria-labelledby="burgerMenu"]');
         this.burgerMenuItem=page.locator('#burgerMenu div.game-button');
+        this.burgerMenuHowItWorksItem=page.locator('#burgerMenu a.burger-menu__button');
+        this.burgerMenuSupportItem=page.locator('#burgerMenu div.burger-menu__button',{hasText:'Platform support'});
         this.notificationsMenuList=page.locator('div[aria-labelledby="notificationsMenu"]');
         this.notificationsMenuListItem=page.locator('div[aria-labelledby="notificationsMenu"] .notification');
     }
@@ -46,6 +48,12 @@ export class Header{
     getBurgerMenuItem(string){
         return this.burgerMenuItem.filter({hasText:string});
     }
+    getBurgerMenuHowItWorksItem(){
+        return this.burgerMenuHowItWorksItem;
+    }
+    getBurgerMenuSupportItem(){
+        return this.burgerMenuSupportItem
+    }
 
     getNotificationsMenuList(){
         return this.notificationsMenuList;
@@ -53,5 +61,6 @@ export class Header{
     getNotificationsMenuListItem(){
         return this.notificationsMenuItemList;
     }
+
 
 }
