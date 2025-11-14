@@ -65,6 +65,7 @@ test.describe("Header testing", ()=>{
         await expect(header.getBuyEnergyBtn()).toBeVisible();
         await header.getAvatarIcon().click();
         const settingsPage=new SettingsPage(page,ENVIRONMENT);
+        await page.waitForURL(/\/profile\/settings$/);
         await expect(settingsPage.getProfileTitle()).toBeVisible();
         await expect(settingsPage.getProfileTitle()).toHaveText('Personal info');
     })
