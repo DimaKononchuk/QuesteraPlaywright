@@ -9,6 +9,7 @@ import { PortalMenu } from "../pages/Components/PortalMenu";
 import { ZendeskWidget } from "../pages/Widget/ZendeskWidget";
 import { SteamAcountPopup } from "../pages/Popup/SteamAccountPopup";
 import { DepositPage } from "../pages/DepositPage";
+import { BountyServiceAPI } from "../helpers/BountyServiceAPI";
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
@@ -233,6 +234,59 @@ test.describe("Started block", ()=>{
         await expect(portalMenuWalletItem).toHaveCSS('color', 'rgb(187, 160, 114)');
     })
 
+    test.afterEach(async ({ page }) => {
+        page.close();        
+    });
+})
+
+test.describe('Daily box', ()=>{
+
+    test('Daily item state "Active"', async({page})=>{
+        const bountyService= new BountyServiceAPI(page);
+        await bountyService.mockDailyEnergyBoxState('Active');
+        const home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.getDailyBox()).toBeVisible();
+        const dailyItem=home.getDailyItem();
+        await expect(dailyItem).toHaveClass(/daily__item-active/);
+        await expect(dailyItem).toHaveCSS('background', /url\(".*\/img\/daily-box\/star\.svg"\) no-repeat .* linear-gradient\(137deg, rgb\(255, 61, 0\) 1\.23%, rgb\(255, 122, 0\) 86\.63%\)/);
+        await expect(dailyItem).toHaveText(/Claim/);
+        await dailyItem.hover();
+        await expect(page.locator('div.daily__item-active')).toHaveCSS('transform','matrix(1.25, 0, 0, 1.25, 0, 0)');
+    })
+
+    test('Daily item state "Blocked"', async({page})=>{
+        const bountyService= new BountyServiceAPI(page);
+        await bountyService.mockDailyEnergyBoxState('Blocked');
+        const home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.getDailyBox()).toBeVisible();
+        const dailyItem=home.getDailyItem();        
+        await expect(dailyItem).toHaveCSS('background', 'rgba(255, 255, 255, 0.02) none repeat scroll 0% 0% / auto padding-box border-box');
+        await expect(dailyItem).toHaveText(/Day 1/);
+        
+    })
+
+    test('Daily item state "Used"', async({page})=>{
+        const bountyService= new BountyServiceAPI(page);
+        await bountyService.mockDailyEnergyBoxState('Used');
+        let home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.getDailyBox()).toBeVisible();
+        const dailyItem=home.getDailyItem();
+        await expect(dailyItem).toHaveClass(/daily__item-used/);
+        await expect(dailyItem).toHaveCSS('background', /url\(".*\/img\/daily-box\/star\.svg"\) no-repeat .* linear-gradient\(137deg, rgb\(128, 255, 156\) 1\.23%, rgb\(20, 138, 46\) 86\.63%\)/);
+                
+    })
+
+    test('Daily box disabled', async({page})=>{
+        const bountyService= new BountyServiceAPI(page);
+        await bountyService.mockDailyEnergyBoxIsEnabled(false);
+        let home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        const dailyItem=home.getDailyItem();
+        await expect(home.getDailyBox()).toBeHidden();
+    })
     test.afterEach(async ({ page }) => {
         page.close();        
     });
