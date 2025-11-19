@@ -10,6 +10,8 @@ import { ZendeskWidget } from "../pages/Widget/ZendeskWidget";
 import { SteamAcountPopup } from "../pages/Popup/SteamAccountPopup";
 import { DepositPage } from "../pages/DepositPage";
 import { BountyServiceAPI } from "../helpers/BountyServiceAPI";
+import { PremiumInfoModal } from "../pages/Popup/PremiumInfoModal";
+import { PossibleRewardModal } from "../pages/Popup/PossibleRewardModal";
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
@@ -290,4 +292,109 @@ test.describe('Daily box', ()=>{
     test.afterEach(async ({ page }) => {
         page.close();        
     });
+})
+
+test.describe('Random Box', ()=>{
+    test('Energy Box disabled', async({page})=>{
+        const bountyService=new BountyServiceAPI(page);
+        bountyService.mockBoxDisabled('Energy');
+        const home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.energyBox.box).toHaveClass(/daily__energy_disabled/);
+        const button=home.energyBox.button;
+        await expect(button).toHaveClass(/daily__energy__button_disabled/);
+        await expect(button).toHaveText(/Unavailable/i);        
+    })
+
+    test('Energy Box NotEarned', async({page})=>{
+        const bountyService=new BountyServiceAPI(page);
+        bountyService.mockBoxState('Energy','NotEarned');
+        const home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.energyBox.box).toBeVisible();
+        const button=home.energyBox.button;
+        await expect(button).toHaveText(/Locked/i);
+        await button.hover();
+        await expect(button).toHaveText(/How to get\/?/i);
+        await button.click();
+        const premiumInfoModal=new PremiumInfoModal(page);
+        await premiumInfoModal.checkModal();
+        await premiumInfoModal.Close.click();
+        await page.waitForTimeout(1000);
+        await expect(premiumInfoModal.Modal).toBeHidden();
+        await home.energyBox.icon.click();
+        const possiblRewardModal=new PossibleRewardModal(page);
+        await possiblRewardModal.checkModal();        
+        await possiblRewardModal.Close.click();
+        await page.waitForTimeout(1000);
+        await expect(possiblRewardModal.Modal).toBeHidden();      
+    })
+
+    test('Energy Box Used', async({page})=>{
+        const bountyService=new BountyServiceAPI(page);
+        bountyService.mockBoxState('Energy','Used');
+        const home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.energyBox.box).toBeVisible();
+        const button=home.energyBox.button;
+        await expect(button).toHaveClass(/daily__energy__button_timer/);
+        await button.hover();
+        await expect(button).toHaveText(/How to get\/?/i);
+        await button.click();
+        const premiumInfoModal=new PremiumInfoModal(page);
+        await premiumInfoModal.checkModal();
+        await premiumInfoModal.Close.click();
+        await page.waitForTimeout(1000);
+        await expect(premiumInfoModal.Modal).toBeHidden();
+        await home.energyBox.icon.click();
+        const possiblRewardModal=new PossibleRewardModal(page);
+        await possiblRewardModal.checkModal();        
+        await possiblRewardModal.Close.click();
+        await page.waitForTimeout(1000);
+        await expect(possiblRewardModal.Modal).toBeHidden();
+        
+        
+    })
+    test('Mega Box disabled', async({page})=>{
+        const bountyService=new BountyServiceAPI(page);
+        bountyService.mockBoxDisabled('Mega');
+        const home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.megaBox.box).toHaveClass(/daily__mega_disabled/);
+        const button=home.megaBox.button
+        await expect(button).toHaveClass(/daily__mega__button_disabled/);
+        await expect(button).toHaveText(/Unavailable/i);        
+    })
+
+    test('Mega Box NotEarned', async({page})=>{
+        const bountyService=new BountyServiceAPI(page);
+        bountyService.mockBoxState('Mega','NotEarned');
+        const home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.megaBox.box).toBeVisible();
+        const button=home.megaBox.button;
+        await expect(button).toHaveText(/Locked/i);
+        await home.megaBox.icon.click();
+        const possiblRewardModal=new PossibleRewardModal(page);
+        await possiblRewardModal.checkModal();        
+        await possiblRewardModal.Close.click();
+        await page.waitForTimeout(1000);
+        await expect(possiblRewardModal.Modal).toBeHidden();        
+    })
+
+    test('Mega Box Used', async({page})=>{
+        const bountyService=new BountyServiceAPI(page);
+        bountyService.mockBoxState('Mega','Used');
+        const home = new HomePage(page, ENVIRONMENT);        
+        await home.openPage();
+        await expect(home.megaBox.box).toBeVisible();
+        const button=home.megaBox.button;
+        await expect(button).toHaveClass(/daily__mega__button_timer/);  
+        await home.megaBox.icon.click();
+        const possiblRewardModal=new PossibleRewardModal(page);
+        await possiblRewardModal.checkModal();        
+        await possiblRewardModal.Close.click();
+        await page.waitForTimeout(1000);
+        await expect(possiblRewardModal.Modal).toBeHidden();              
+    })
 })
