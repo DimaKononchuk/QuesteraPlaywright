@@ -1,3 +1,4 @@
+import { console } from "inspector";
 
 
 export class BountyServiceAPI{
@@ -31,6 +32,46 @@ export class BountyServiceAPI{
             await route.fulfill({
                 response: originalResponse, 
                 body: JSON.stringify(data)
+            });
+        });
+    }
+
+    async mockBoxDisabled(type){
+        await this.page.route('**/bounty/random-box/status', async route => {
+            const originalResponse = await route.fetch();
+            const json = await originalResponse.json();
+            json.data = json.data.filter(item => item.type !== type);
+            
+            await route.fulfill({
+                response: originalResponse, 
+                body: JSON.stringify(json)
+            });
+        });
+
+    }
+
+    async mockBoxState(type,state){
+        await this.page.route('**/bounty/random-box/status', async route => {
+            const originalResponse = await route.fetch();
+            const json = await originalResponse.json();
+            json.data.find(e=>e.type===type).status=state;
+            
+            await route.fulfill({
+                response: originalResponse, 
+                body: JSON.stringify(json)
+            });
+        });
+    }
+
+    async getRewardUserList(){
+        await this.page.route('**/bounty/random-box/status', async route => {
+            const originalResponse = await route.fetch();
+            const json = await originalResponse.json();
+            json.data.find(e=>e.type===type).status=state;
+            
+            await route.fulfill({
+                response: originalResponse, 
+                body: JSON.stringify(json)
             });
         });
     }
