@@ -1,4 +1,4 @@
-import test, { page,expect } from "@playwright/test";
+import test, { page,expect ,request} from "@playwright/test";
 import { HomePage } from '../pages/HomePage';
 import { Sidebar } from '../pages/Components/Sidebar';
 import { Header } from "../pages/Components/Header";
@@ -12,6 +12,9 @@ import { DepositPage } from "../pages/DepositPage";
 import { BountyServiceAPI } from "../helpers/BountyServiceAPI";
 import { PremiumInfoModal } from "../pages/Popup/PremiumInfoModal";
 import { PossibleRewardModal } from "../pages/Popup/PossibleRewardModal";
+import { adminToken,updateBoxStateActive, updateBoxStateNotEarned } from "../helpers/AdminToken";
+import { RewardModal } from "../pages/Popup/RewardModal";
+
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
 
@@ -295,10 +298,17 @@ test.describe('Daily box', ()=>{
 })
 
 test.describe('Random Box', ()=>{
+
+    let bountyService, home;
+    
+    test.beforeEach(async ({ page }) => {
+        bountyService = new BountyServiceAPI(page);
+        home = new HomePage(page, ENVIRONMENT);
+        
+    });
+
     test('Energy Box disabled', async({page})=>{
-        const bountyService=new BountyServiceAPI(page);
         bountyService.mockBoxDisabled('Energy');
-        const home = new HomePage(page, ENVIRONMENT);        
         await home.openPage();
         await expect(home.energyBox.box).toHaveClass(/daily__energy_disabled/);
         const button=home.energyBox.button;
@@ -307,22 +317,25 @@ test.describe('Random Box', ()=>{
     })
 
     test('Energy Box NotEarned', async({page})=>{
-        const bountyService=new BountyServiceAPI(page);
         bountyService.mockBoxState('Energy','NotEarned');
-        const home = new HomePage(page, ENVIRONMENT);        
+              
         await home.openPage();
         await expect(home.energyBox.box).toBeVisible();
+
         const button=home.energyBox.button;
         await expect(button).toHaveText(/Locked/i);
         await button.hover();
         await expect(button).toHaveText(/How to get\/?/i);
         await button.click();
+
         const premiumInfoModal=new PremiumInfoModal(page);
         await premiumInfoModal.checkModal();
         await premiumInfoModal.Close.click();
         await page.waitForTimeout(1000);
         await expect(premiumInfoModal.Modal).toBeHidden();
+
         await home.energyBox.icon.click();
+
         const possiblRewardModal=new PossibleRewardModal(page);
         await possiblRewardModal.checkModal();        
         await possiblRewardModal.Close.click();
@@ -331,22 +344,24 @@ test.describe('Random Box', ()=>{
     })
 
     test('Energy Box Used', async({page})=>{
-        const bountyService=new BountyServiceAPI(page);
         bountyService.mockBoxState('Energy','Used');
-        const home = new HomePage(page, ENVIRONMENT);        
         await home.openPage();
         await expect(home.energyBox.box).toBeVisible();
+
         const button=home.energyBox.button;
         await expect(button).toHaveClass(/daily__energy__button_timer/);
         await button.hover();
         await expect(button).toHaveText(/How to get\/?/i);
         await button.click();
+
         const premiumInfoModal=new PremiumInfoModal(page);
         await premiumInfoModal.checkModal();
         await premiumInfoModal.Close.click();
         await page.waitForTimeout(1000);
         await expect(premiumInfoModal.Modal).toBeHidden();
+
         await home.energyBox.icon.click();
+
         const possiblRewardModal=new PossibleRewardModal(page);
         await possiblRewardModal.checkModal();        
         await possiblRewardModal.Close.click();
@@ -356,9 +371,7 @@ test.describe('Random Box', ()=>{
         
     })
     test('Mega Box disabled', async({page})=>{
-        const bountyService=new BountyServiceAPI(page);
         bountyService.mockBoxDisabled('Mega');
-        const home = new HomePage(page, ENVIRONMENT);        
         await home.openPage();
         await expect(home.megaBox.box).toHaveClass(/daily__mega_disabled/);
         const button=home.megaBox.button
@@ -367,9 +380,9 @@ test.describe('Random Box', ()=>{
     })
 
     test('Mega Box NotEarned', async({page})=>{
-        const bountyService=new BountyServiceAPI(page);
+        
         bountyService.mockBoxState('Mega','NotEarned');
-        const home = new HomePage(page, ENVIRONMENT);        
+             
         await home.openPage();
         await expect(home.megaBox.box).toBeVisible();
         const button=home.megaBox.button;
@@ -383,9 +396,7 @@ test.describe('Random Box', ()=>{
     })
 
     test('Mega Box Used', async({page})=>{
-        const bountyService=new BountyServiceAPI(page);
         bountyService.mockBoxState('Mega','Used');
-        const home = new HomePage(page, ENVIRONMENT);        
         await home.openPage();
         await expect(home.megaBox.box).toBeVisible();
         const button=home.megaBox.button;
@@ -397,4 +408,72 @@ test.describe('Random Box', ()=>{
         await page.waitForTimeout(1000);
         await expect(possiblRewardModal.Modal).toBeHidden();              
     })
+
+
+    test("Energy Box Active->Used", async({page,request})=>{
+        const {token,status}= await adminToken(request);
+        await expect(status).toBe(200);
+        const statusBoxActive= await updateBoxStateActive(request,token);
+        await expect(statusBoxActive).toBe(200);  
+        await home.openPage();
+        const button=home.energyBox.button;
+        await expect(button).toHaveClass(/daily__energy__button_get-reward/);
+        await expect(button).toHaveText(/Get reward/);
+        await button.click();
+        const rewardModal=new RewardModal(page);        
+        await rewardModal.checkModal();
+        await rewardModal.Button.click();
+        await expect(rewardModal.Modal).toBeHidden({timeout:5000});
+
+        const statusBoxNotEarned= await updateBoxStateNotEarned(request,token);
+        await expect(statusBoxNotEarned).toBe(200);  
+
+    })
+    test.afterEach(async ({ page }) => {
+        page.close();        
+    });
+
+})
+
+test.describe('Random Box. Active->Used', async()=>{
+    let home;
+    test.beforeEach(async ({ page,request }) => {
+        home = new HomePage(page, ENVIRONMENT);
+        const {token,status}= await adminToken(request);
+        await expect(status).toBe(200);
+        const statusBoxActive= await updateBoxStateActive(request,token);
+        await expect(statusBoxActive).toBe(200);
+        
+    });
+
+    test("Energy Box Active->Used", async({page})=>{        
+        await home.openPage();
+        const button=home.energyBox.button;
+        await expect(button).toHaveClass(/daily__energy__button_get-reward/);
+        await expect(button).toHaveText(/Get reward/i);
+        await button.click();
+        const rewardModal=new RewardModal(page);        
+        await rewardModal.checkModal();
+        await rewardModal.Button.click();
+        await expect(rewardModal.Modal).toBeHidden({timeout:5000});
+    })
+
+    test("Mega Box Active->Used", async({page})=>{        
+        await home.openPage();
+        const button=home.megaBox.button;
+        await expect(button).toHaveClass(/daily__mega__button_get/);
+        await expect(button).toHaveText(/Get reward/i);
+        await button.click();
+        const rewardModal=new RewardModal(page);        
+        await rewardModal.checkModal();
+        await rewardModal.Button.click();
+        await expect(rewardModal.Modal).toBeHidden({timeout:5000});
+    })
+    test.afterEach(async ({ page,request }) => {
+        const {token,status}= await adminToken(request);
+        await expect(status).toBe(200);
+        const statusBoxActive= await updateBoxStateNotEarned(request,token);
+        await expect(statusBoxActive).toBe(200);
+        page.close();        
+    });
 })
