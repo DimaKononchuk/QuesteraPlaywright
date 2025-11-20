@@ -64,3 +64,23 @@ export const updateBoxStateNotEarned= async(request,adminToken)=>{
     });
     return response.status();
 }
+
+export const updateDailyBoxFirstDayActive = async(request,adminToken)=>{
+    const response=await request.put(`https://api.${ENVIRONMENT}.questera.games/utility/mongo`,{
+            data:{               
+                "updateDefinition": "{ $set:{'Rewards.0.State':1}}",
+                "dbName": "Bounty",
+                "collectionName": "DailyEnergyBox",
+                "query": "{UserId:'7448d758-758b-4f2c-b83e-e59ea7817fda'}"
+            },
+            headers:{
+                "Content-Type": "application/json",
+                "Accept":"*/*",
+                "Authorization": `Bearer ${adminToken}`
+
+            }
+    });
+    return response.status();
+
+}
+

@@ -12,8 +12,9 @@ import { DepositPage } from "../pages/DepositPage";
 import { BountyServiceAPI } from "../helpers/BountyServiceAPI";
 import { PremiumInfoModal } from "../pages/Popup/PremiumInfoModal";
 import { PossibleRewardModal } from "../pages/Popup/PossibleRewardModal";
-import { adminToken,updateBoxStateActive, updateBoxStateNotEarned } from "../helpers/AdminToken";
+import { adminToken,updateBoxStateActive, updateBoxStateNotEarned, updateDailyBoxFirstDayActive } from "../helpers/RequestScripts";
 import { RewardModal } from "../pages/Popup/RewardModal";
+import { NotificationToast } from "../pages/Components/NotificationToast";
 
 
 const ENVIRONMENT=process.env.TEST_ENVIRONMENT;
@@ -296,7 +297,35 @@ test.describe('Daily box', ()=>{
         page.close();        
     });
 })
-
+test.describe('Daily Box claim reward', ()=>{
+    let home;
+    test.beforeEach(async ({ page,request }) => {
+        home = new HomePage(page, ENVIRONMENT);
+        const {token,status}= await adminToken(request);
+        await expect(status).toBe(200);
+        const statusDailyBox= await updateDailyBoxFirstDayActive(request,token);
+        await expect(statusDailyBox).toBe(200);
+        
+    });
+    test('Claim reward', async({page})=>{
+        await home.openPage();
+        const dailyItem=home.getDailyItem();
+        const notificationToast=new NotificationToast(page);
+        await expect(dailyItem).toHaveClass(/daily__item-active/);
+        await expect(dailyItem).toHaveCSS('background', /url\(".*\/img\/daily-box\/star\.svg"\) no-repeat .* linear-gradient\(137deg, rgb\(255, 61, 0\) 1\.23%, rgb\(255, 122, 0\) 86\.63%\)/);
+        await dailyItem.click();
+        await expect(dailyItem).toHaveClass(/daily__item-used/,{timeout:5000});
+        await expect(dailyItem).toHaveCSS('background', /url\(".*\/img\/daily-box\/star\.svg"\) no-repeat .* linear-gradient\(137deg, rgb\(128, 255, 156\) 1\.23%, rgb\(20, 138, 46\) 86\.63%\)/);
+        await expect(notificationToast.Notification).toBeVisible();                
+    });
+    test.afterEach(async ({ page,request }) => {
+        const {token,status}= await adminToken(request);
+        await expect(status).toBe(200);
+        const statusDailyBox= await updateBoxStateNotEarned(request,token);
+        await expect(statusDailyBox).toBe(200);
+        page.close();        
+    });
+})
 test.describe('Random Box', ()=>{
 
     let bountyService, home;
