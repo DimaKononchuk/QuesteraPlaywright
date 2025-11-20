@@ -15,4 +15,11 @@ export class RewardServiceAPI{
         );
         return await response.json();
     }
+
+    async getRewardReward(){
+        const response = await this.page.waitForResponse(
+            r => r.url().includes('/reward/reward/') && r.status() === 200
+        );
+        return await response.json();
+    }
 }
